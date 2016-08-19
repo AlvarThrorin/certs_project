@@ -1,0 +1,86 @@
+Type
+OpenSSL uses PKCS12 to store keys and or certificates. Certificates and keys  made in OpenSSL however are being made into PEM or DER encoded file. Said keys/certificates can then be stored inside single .pfx file made with 
+
+Viewing stored certificates
+PEM encoded certificates (.pem|.cer|.crt):
+	openssl x509 -in sample_cert.extention -text -noout
+
+DER encoded certificates (.der):
+	openssl x509 -in certificate.der -inform der -text -noout
+
+Importing PEM or DER encoded keys or certificates into PKCS#12 file:
+
+	openssl pkcs12 -export -in file.pem -out file.p12 -name "My Certificate" -certfile othercerts.pem
+
+	-certfile othercerts.pem option is used only if importing more certificates into 1 PKCS#12 file is wanted.
+
+License
+OpenSSL is free to use commercialy, however creating CA is not advised - OPENSSL O'REILY page 59 - but also hinted in manual pages - The ca command is quirky and at times downright unfriendly.
+
+The ca utility was originally meant as an example of how to do things in a CA . It was not supposed to be used as a full blown CA itself: nevertheless some people are using it for this purpose.
+
+The ca command is effectively a single user command: no locking is done on the various files and attempts to run more than one ca command on the same database can have unpredictable results. 
+
+Generation of / signing a certificate
+
+Generate keys and self-signed certificate
+It is possible to generate private key and self signed certificate with command openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout privateKey.key -out certificate_name.crt
+
+Generate keys and Certificate Signing Request
+It is possible to generate private key and CSR with command openssl req -out CSR.csr -new -newkey rsa:2048 -nodes -keyout privateKey.key
+
+Certificate Signing Request signing
+CSR signing can be done by CA created in openSSL by command
+openssl ca -config ca/openssl.cnf \
+      -extensions server_cert -days 375 -notext -md sha256 \
+      -in ca/csr/www.example.com.csr.pem \
+      -out ca/certs/www.example.com.cert.pem
+
+Create combination of private key and signed chain
+First creation of the request is needed, after that request must be signed. To combine them together the creation of pkcs#12 file is needed with commands:
+	openssl pkcs12 -export -out outfilename.p12 -in signed_certificate.crt -inkey privateKey.key -chain -CAfile ca-all.crt -password pass:PASSWORD
+
+Specification of key length and algorithm
+Key length and algorithm is specified while generating key, currently OpenSSL supports Public-key cryptography algorithms:
+RSA, DSA, Diffie-Hellman key exchange, Elliptic Curve
+
+In the past also support for GOST R 34.10-2001 but as of January 2016 deprecated (https://mta.openssl.org/pipermail/openssl-commits/2016-January/003023.html )
+
+Specification of validity
+Validity is specified by CA at the moment of signing CSR.
+
+Basic Constraints
+Specification of constraints is made by changing basicConstraints part in [ v3_req ] part of openssl.cnf of CA
+[ v3_req ]
+
+basicConstraints=critical,CA:BOOL_VAL, pathlen:<maxChainLengthInteger>
+
+Seting Subject Alternative Name for end certificates
+To set SAN the change of subjectAltName in openssl.cnf is needed
+
+[ v3_req ]
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = example1.com
+DNS.2 = example2.com
+DNS.<next_number> = dns_webaddress.com
+
+Using Cryptographic Service Provider
+//TO DO
+
+Conversions
+PKCS12 and JKS conversion in OpenSSL
+//AFAIK cannot be done using only OpenSSL needed to be tested/researched more
+
+Export certificate only from PKCS12 file
+It can be done with command:
+openssl pkcs12 -in [yourfile.pfx] -clcerts -nokeys -out [certificate.crt] 
+
+Export private key only from PKCS12 file
+To export private key use command:
+openssl pkcs12 -nocerts -in [filename.pfx] -out [site.key]
+
+Importing certificates and private keys into PKCS12 file
+//should be possible with openssl pkcs12 -export -in file.pem -out file.p12 -name "My Certificate" -certfile othercerts.pem but need to test it.
+
