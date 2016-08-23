@@ -1,5 +1,8 @@
 \documentclass{report}
 \usepackage[utf8]{inputenc}
+\usepackage{multirow}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{adjustbox,lipsum}
 
 \title{Report on Certificate Tools}
 \author{Oliver Bodnár}
@@ -10,125 +13,48 @@
 \maketitle
 
 \tableofcontents
-\newpage
-\part{Overview}
-\chapter{Tools Overview Table}
 
+\newpage
+
+\part{Overview}
+
+\chapter{Overview Tables}
+
+\section{General}
+\begin{table}[]
+\centering
+\caption{Overwiew General}
+\label{my-label}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+                        & \multicolumn{3}{c|}{General}                   \\ \cline{2-4} 
+\multirow{-2}{*}{Tools} & Type   & View + info                 & License \\ \hline
+OpenSSL                 & PKCS12 & \cellcolor[HTML]{34FF34}Yes & Public  \\ \hline
+Keygen                  & JKS    &                             &         \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\section{Generation and signing of certificates}
+\begin{table}[]
+\centering
+\caption{Generation and signing table}
+\label{my-label}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+                        & \multicolumn{11}{c|}{Generation and signing}                                                                                                                                                                                                                                                                                                                                                                                                                                      \\ \cline{2-12} 
+                        & \multicolumn{4}{c|}{Generate keys}                                                                                                                             &                               &                                          &                                                & \multicolumn{2}{c|}{Basic Constraints}                    &                                            &                                                                             \\ \cline{2-5} \cline{9-10}
+\multirow{-3}{*}{Tools} & \begin{tabular}[c]{@{}c@{}}+\\  self-signed certificate\end{tabular} & + CSR                       & Specify length              & Specify algorithm           & \multirow{-2}{*}{CSR signing} & \multirow{-2}{*}{Privkey + signed chain} & \multirow{-2}{*}{Specify certificate validity} & Specify Type                & Specify path length         & \multirow{-2}{*}{SAN for end certificates} & \multirow{-2}{*}{\begin{tabular}[c]{@{}c@{}}Support for\\ CSP\end{tabular}} \\ \hline
+OpenSSL                 & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes   & \cellcolor[HTML]{34FF34}Yes              & \cellcolor[HTML]{34FF34}Yes                    & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes                & \cellcolor[HTML]{34FF34}Yes                                                 \\ \hline
+Keygen                  &                                                                      &                             &                             &                             &                               &                                          &                                                &                             &                             &                                            &                                                                             \\ \hline
+                        &                                                                      &                             &                             &                             &                               &                                          &                                                &                             &                             &                                            &                                                                             \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
 
 \part{Tools}
-\chapter{OpenSSL}
-\section{type}
-OpenSSL uses PKCS12 to store keys and or certificates. Certificates and keys  made in OpenSSL however are being made into PEM or DER encoded file. Said keys/certificates can then be stored inside single .pfx file made with 
-
-\section{Viewing stored certificates}
-PEM encoded certificates (.pem|.cer|.crt):
-\begin{verbatim}
-        openssl x509 -in sample_cert.extention -text -noout
-\end{verbatim}
-DER encoded certificates (.der):
-\begin{verbatim}
-        openssl x509 -in certificate.der -inform der -text -noout
-\end{verbatim}
-Importing PEM or DER encoded keys or certificates into PKCS#12 file:
-\begin{verbatim}
-        openssl pkcs12 -export -in file.pem -out file.p12 -name "My Certificate" -certfile othercerts.pem
-\end{verbatim}
-        certfile option is used only if importing more certificates into a single PKCS#12 file is wanted.
-
-\section{License}
-OpenSSL is free to use commercialy, however creating CA is not advised - OPENSSL O'REILY page 59 - but also hinted in manual pages.
-The ca command is quirky and at times downright unfriendly.
-
-The ca utility was originally meant as an example of how to do things in a CA . It was not supposed to be used as a full blown CA itself: nevertheless some people are using it for this purpose.
-
-The ca command is effectively a single user command: no locking is done on the various files and attempts to run more than one ca command on the same database can have unpredictable results. 
-
-\section{Generation of / signing a certificate}
-
-\subsection{Generate keys and self-signed certificate}
-It is possible to generate private key and self signed certificate with 
-\begin{verbatim}
-openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout privateKey.key -out certificate_name.crt
-\end{verbatim}
-
-\subsection{Generate keys and Certificate Signing Request}
-It is possible to generate private key and CSR with
-\begin{verbatim}
-openssl req -out CSR.csr -new -newkey rsa:2048 -nodes -keyout privateKey.key
-\end{verbatim}
-
-\subsection{Certificate Signing Request signing}
-CSR signing can be done by CA created in openSSL by command
-\begin{verbatim}
-openssl ca -config ca/openssl.cnf -extensions server_cert -days 375 -notext -md sha256 -in ca/csr/www.example.com.csr.pem -out ca/certs/www.example.com.cert.pem
-\end{verbatim}
-
-\subsection{Create combination of private key and signed chain}
-First creation of the request is needed, after that request must be signed. To combine them together the creation of pkcs#12 file is needed with commands:
-\begin{verbatim}
-        openssl pkcs12 -export -out outfilename.p12 -in signed_certificate.crt -inkey privateKey.key -chain -CAfile ca-all.crt -password pass:PASSWORD
-\end{verbatim}
-
-\subsection{Specification of key length and algorithm}
-Key length and algorithm is specified while generating key, currently OpenSSL supports Public-key cryptography algorithms:
-RSA, DSA, Diffie-Hellman key exchange, Elliptic Curve
-
-In the past also support for GOST R 34.10-2001 but as of January 2016 deprecated (https://mta.openssl.org/pipermail/openssl-commits/2016-January/003023.html )
-
-\subsection{Specification of validity}
-Validity is specified by CA at the moment of signing CSR.
-
-\subsection{Basic Constraints}
-Specification of constraints is made by changing basicConstraints part in [ v3_req ] part of openssl.cnf of CA
-\begin{verbatim}
-[ v3_req ]
-
-basicConstraints=critical,CA:BOOL_VAL,\
- pathlen:<maxChainLengthInteger>
-\end{verbatim}
-
-\subsection{Seting Subject Alternative Name for end certificates}
-To set SAN the change of subjectAltName in openssl.cnf is needed
-\begin{verbatim}
-[ v3_req ]
-subjectAltName = @alt_names
-
-[alt_names]
-DNS.1 = example1.com
-DNS.2 = example2.com
-DNS.<next_number> = dns_webaddress.com
-\end{verbatim}
-
-\subsection{Using Cryptographic Service Provider}
-TO DO
-
-\section{Conversions}
-\subsection{PKCS12 and JKS conversion in OpenSSL}
-
-
-
-
-\subsection{Export certificate only from PKCS12 file}
-It can be done with command:
-\begin{verbatim}
-openssl pkcs12 -in yourfile.pfx -clcerts \
- -nokeys -out certificate.crt 
-\end{verbatim}
-
-\subsection{Export private key only from PKCS12 file}
-To export private key use command:
-\begin{verbatim}
-openssl pkcs12 -nocerts -in filename.pfx -out site.key
-\end{verbatim}
-
-\subsection{Importing into PKCS12 file}
-should be possible with 
-\begin{verbatim}
-openssl pkcs12 -export -in file.pem -out file.p12 \
-
--name "My Certificate" -certfile \
-othercerts.pem but need to test it.
-\end{verbatim}
 
 
 
