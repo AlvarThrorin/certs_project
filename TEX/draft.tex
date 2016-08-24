@@ -6,6 +6,8 @@
 \usepackage{adjustbox,lipsum}
 \usepackage{alltt} %for code snippets
 
+\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\} %used for better formating of some text
+
 \setlength{\oddsidemargin}{0cm}
 \setlength{\evensidemargin}{0cm}
 \setlength{\textwidth}{500pt}
@@ -185,15 +187,15 @@ Possibility of importing (additional?) certificates and keys into storage files 
   \subsection{View and information}
   
 \subsubsection{Viewing stored certificates}
-\paragraph{PEM encoded certificates (.pem$|$.cer$|$.crt):}
+\myparagraph{PEM encoded certificates (.pem$\vert$.cer$\vert$.crt):}
 
   \verb+openssl x509 -in sample_cert.extention -text -noout+
 
-\paragraph{DER encoded certificates (.der):}
+\myparagraph{DER encoded certificates (.der):}
 
   \verb+openssl x509 -in certificate.der -inform der -text -noout+
 
-\paragraph{Importing PEM or DER encoded keys or certificates into PKCS#12 file:}
+\myparagraph{Importing PEM or DER encoded keys or certificates into PKCS\#12 file:}
 
   \verb+openssl pkcs12 -export -in file.pem -out file.p12 -name "My Certificate" -certfile othercerts.pem+
 
@@ -201,6 +203,15 @@ certfile option is used only if importing more certificates into a single PKCS\#
 
   
   \subsection{License}
+OpenSSL is free to use commercialy, however creating CA is not advised
+a) OPENSSL O'REILY page 59 
+b) hinted in manual pages.
+
+The ca command is quirky and at times downright unfriendly.
+
+The ca utility was originally meant as an example of how to do things in a CA . It was not supposed to be used as a full blown CA itself: nevertheless some people are using it for this purpose.
+
+The ca command is effectively a single user command: no locking is done on the various files and attempts to run more than one ca command on the same database can have unpredictable results. 
 
   
 \section{Generation and signing of certificates}
