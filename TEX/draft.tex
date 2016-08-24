@@ -4,6 +4,7 @@
 \usepackage{multirow}
 \usepackage[table,xcdraw]{xcolor}
 \usepackage{adjustbox,lipsum}
+\usepackage{alltt} %for code snippets
 
 \setlength{\oddsidemargin}{0cm}
 \setlength{\evensidemargin}{0cm}
@@ -44,13 +45,13 @@ Keygen                  & JKS    &                             &         \\ \hli
 %TABLE END
 
 \subsection{Type}
-Sample text for defining what Type means
+This section defines type of storage file in which the certificates or keys are saved. Most common are PKCS\#12 (.pfx and .p12 extentions) and JKS (Java KeyStore). 
 
 \subsection{View and information}
-Sample text for definition.
+This section shows whether it is possible to view certificates or keys and additional information. Yes means that at least viewing is supported while not necessary meaning possibility of viewing more information about certificate.
 
 \subsection{License}
-Sample text for definition.
+Type of license and possibility of using said tool for testing or production code. Public means that license is not requiered for use in production code but does not mean that it should be used as such. Definition if it is advised to use said tool in production code or only in testing enviroment will be talked about in the next chapter under each tool.
 
 
 \newpage
@@ -77,25 +78,25 @@ Keygen                 &                                                        
 \subsubsection{Generate keys}
 
 \paragraph{Self-signed certificate}
-Some sample text.
+possibility of using 1 command to generate key pair and self-signed certificate
 
 \paragraph{Certificate Signing Request}
-More sample text.
+possibility of using a command to generate key pair and certificate signing request to certificate authority.
 
 \paragraph{Specify length}
-Even more sample text.
+possibility to specify the length of output key
 
 \paragraph{Specify algorithm}
-You guessed it! More sample text.
+possibility to choose between different types of algorithms for key generation
 
 
 \subsubsection{Basic Constraints}
 
 \paragraph{Specify Type}
-Not even trying to come up with sample text.
+specify if generated certificate will belong to certificate authority or whether it will be end certificate
 
 \paragraph{Specify path length}
-Path length is long as long you wish it.
+specify the maximum length of certificate authority chain
 
 
 \subsection{Specifications}
@@ -118,22 +119,20 @@ Keygen                 &                               &                        
 %TABLE END
 
 \paragraph{Certificate Signing Request signing}
-Some random text.
+possibility of signing a certificate signing request with certificate authority's key
 
 \paragraph{Create combination of private key and signed chain}
-Some random text.
+possibility of generating private key and chain signed by certificate authority that will be outputed to a single file
 
 \paragraph{Specify certificate validity}
-Some random text.
+possibility of choosing how long will the certificate be valid. This should be done by certificate authority.
 
 \paragraph{Setting Subject Alternative Name for end certificates}
-Some random text.
+possibility of choosing Subject Alternative Name for end certificates. That should be done by IP's or DNS addresses.
 
 \paragraph{Support for Cryptographic Service Provider}
-Some random text.
+whether the use, choosing and changing of Cryptographic Service Provider is supported.
 
-
-\newpage
 
 \section{Conversions}
 
@@ -159,24 +158,158 @@ Keygen                  &                                  &                    
 \subsection{Exporting}
 
 \subsubsection{Certificate or certificate chain from a file}
-Some random text.
+Possibility of extracting certificate or certificate only from a file. Choice of Yes based on possibility of extracting either from a file.
 
 \subsubsection{Private key only}
-Some random text.
+Possibility of extracting private key from tool's file storage type of choice.
 
 \subsection{Direct conversion between Java Keystore and PKCS\#12 file}
-Some random text.
+Possibility of direct conversion (by a command of tested tool) between Java KeyStore and PKCS\#12 type file.
 
 \subsection{Importing of certificates and keys into storage files}
-Some random text.
+Possibility of importing (additional?) certificates and keys into storage files of said tool. Yes if it is possible to import or add another certificate or key into storage.
 
 
 \newpage
-
+%TOOLS PART
 \part{Tools}
 
+%OPENSSL text added by parts, need to check commands again
+\chapter{OpenSSL}
+
+\section{General}
+
+  \subsection{Type}
+  OpenSSL uses PKCS12 to store keys and or certificates. Certificates and keys  made in OpenSSL however are being made into PEM or DER encoded file. Said keys/certificates can then be stored inside single .pfx file. 
+  
+  \subsection{View and information}
+  
+\subsubsection{Viewing stored certificates}
+\paragraph{PEM encoded certificates (.pem$|$.cer$|$.crt):}
+
+  \verb+openssl x509 -in sample_cert.extention -text -noout+
+
+\paragraph{DER encoded certificates (.der):}
+
+  \verb+openssl x509 -in certificate.der -inform der -text -noout+
+
+\paragraph{Importing PEM or DER encoded keys or certificates into PKCS#12 file:}
+
+  \verb+openssl pkcs12 -export -in file.pem -out file.p12 -name "My Certificate" -certfile othercerts.pem+
+
+certfile option is used only if importing more certificates into a single PKCS\#12 file is wanted.
+
+  
+  \subsection{License}
+
+  
+\section{Generation and signing of certificates}
+
+  \subsection{Keys, certificates and basic constraints}
+  
+    \subsubsection{Generate keys}
+    
+      \paragraph{Self-signed certificate}
+      
+      \paragraph{Certificate Signing Request}
+      
+      \paragraph{Specify length}
+      
+      \paragraph{Specify algorithm}
+      
+    \subsubsection{Basic constraints}
+    
+      \paragraph{Specify Type}
+      
+      \paragraph{Specify path length}
+      
+  \subsection{Specifications}
+  
+    \subsubsection{Certificate Signing Request signing}
+    
+    \subsubsection{Create combination of private key and signed chain}
+    
+    \subsubsection{Specify certificate validity}
+    
+    \subsubsection{Setting Subject Alternative Name for end certificates}
+    
+    \subsubsection{Support for Cryptographic Service Provider}
+    
+\section{Conversions}
+
+  \subsection{Exporting}
+  
+    \subsubsection{Certificate or certificate chain from a file}
+    
+    \subsubsection{Private key only}
+    
+  \subsection{Direct conversion between Java Keystore and PKCS\#12 file}
+  
+  \subsection{Importing certificates and keys into storage files}
+  
 
 
 \chapter{Keygen}
+
+
+
+
+%TEMPLATE FOR ALL OTHER TOOLS
+\chapter{Tool Page Template}
+
+\section{General}
+
+  \subsection{Type}
+  
+  \subsection{View and information}
+  
+  \subsection{License}
+
+  
+\section{Generation and signing of certificates}
+
+  \subsection{Keys, certificates and basic constraints}
+  
+    \subsubsection{Generate keys}
+    
+      \paragraph{Self-signed certificate}
+      
+      \paragraph{Certificate Signing Request}
+      
+      \paragraph{Specify length}
+      
+      \paragraph{Specify algorithm}
+      
+    \subsubsection{Basic constraints}
+    
+      \paragraph{Specify Type}
+      
+      \paragraph{Specify path length}
+      
+  \subsection{Specifications}
+  
+    \subsubsection{Certificate Signing Request signing}
+    
+    \subsubsection{Create combination of private key and signed chain}
+    
+    \subsubsection{Specify certificate validity}
+    
+    \subsubsection{Setting Subject Alternative Name for end certificates}
+    
+    \subsubsection{Support for Cryptographic Service Provider}
+    
+\section{Conversions}
+
+  \subsection{Exporting}
+  
+    \subsubsection{Certificate or certificate chain from a file}
+    
+    \subsubsection{Private key only}
+    
+  \subsection{Direct conversion between Java Keystore and PKCS\#12 file}
+  
+  \subsection{Importing certificates and keys into storage files}
+  
+
 
 \end{document}
