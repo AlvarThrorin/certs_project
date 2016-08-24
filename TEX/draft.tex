@@ -1,8 +1,13 @@
-\documentclass{report}
+\documentclass[10pt, a4paper]{report}
 \usepackage[utf8]{inputenc}
+\usepackage{booktabs}
 \usepackage{multirow}
 \usepackage[table,xcdraw]{xcolor}
 \usepackage{adjustbox,lipsum}
+
+\setlength{\oddsidemargin}{0cm}
+\setlength{\evensidemargin}{0cm}
+\setlength{\textwidth}{500pt}
 
 \title{Report on Certificate Tools}
 \author{Oliver Bodnár}
@@ -21,38 +26,152 @@
 \chapter{Overview Tables}
 
 \section{General}
-\begin{table}[]
+%TABLE START
+\begin{table}[h!]
 \centering
 \caption{Overwiew General}
 \label{my-label}
-\begin{center}
+\begin{adjustbox}{max width=\textwidth}
 \begin{tabular}{|c|c|c|c|}
 \hline
                         & \multicolumn{3}{c|}{General}                   \\ \cline{2-4} 
-\multirow{-2}{*}{Tools} & Type   & View + info                 & License \\ \hline
+\multirow{-2}{*}{Tools} & Type   & View and information        & License \\ \hline
 OpenSSL                 & PKCS12 & \cellcolor[HTML]{34FF34}Yes & Public  \\ \hline
 Keygen                  & JKS    &                             &         \\ \hline
 \end{tabular}
-\end{center}
+\end{adjustbox}
 \end{table}
+%TABLE END
+
+\subsection{Type}
+Sample text for defining what Type means
+
+\subsection{View and information}
+Sample text for definition.
+
+\subsection{License}
+Sample text for definition.
+
+
+\newpage
 
 \section{Generation and signing of certificates}
-\begin{table}[]
+
+\subsection{Keys, certificates and basic constraints}
+%TABLE START
+\begin{table}[h!]
 \centering
-\caption{Generation and signing table}
-\label{my-label}
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+\caption{Generation of keys and certificates and basic constrints}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
-                        & \multicolumn{11}{c|}{Generation and signing}                                                                                                                                                                                                                                                                                                                                                                                                                                      \\ \cline{2-12} 
-                        & \multicolumn{4}{c|}{Generate keys}                                                                                                                             &                               &                                          &                                                & \multicolumn{2}{c|}{Basic Constraints}                    &                                            &                                                                             \\ \cline{2-5} \cline{9-10}
-\multirow{-3}{*}{Tools} & \begin{tabular}[c]{@{}c@{}}+\\  self-signed certificate\end{tabular} & + CSR                       & Specify length              & Specify algorithm           & \multirow{-2}{*}{CSR signing} & \multirow{-2}{*}{Privkey + signed chain} & \multirow{-2}{*}{Specify certificate validity} & Specify Type                & Specify path length         & \multirow{-2}{*}{SAN for end certificates} & \multirow{-2}{*}{\begin{tabular}[c]{@{}c@{}}Support for\\ CSP\end{tabular}} \\ \hline
-OpenSSL                 & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes   & \cellcolor[HTML]{34FF34}Yes              & \cellcolor[HTML]{34FF34}Yes                    & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes                & \cellcolor[HTML]{34FF34}Yes                                                 \\ \hline
-Keygen                  &                                                                      &                             &                             &                             &                               &                                          &                                                &                             &                             &                                            &                                                                             \\ \hline
-                        &                                                                      &                             &                             &                             &                               &                                          &                                                &                             &                             &                                            &                                                                             \\ \hline
+                       & \multicolumn{4}{c|}{Generate keys}                                                                                                                             & \multicolumn{2}{c|}{Basic Constraints}                    \\ \cline{2-7} 
+\multirow{-2}{*}{Tool} & \begin{tabular}[c]{@{}c@{}}+\\  self-signed certificate\end{tabular} & + CSR                       & Specify length              & Specify algorithm           & Specify Type                & Specify path length         \\ \hline
+OpenSSL                & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
+Keygen                 &                                                                      &                             &                             &                             &                             &                             \\ \hline
 \end{tabular}
-\end{center}
+\end{adjustbox}
 \end{table}
+%TABLE END
+
+\subsubsection{Generate keys}
+
+\paragraph{Self-signed certificate}
+Some sample text.
+
+\paragraph{Certificate Signing Request}
+More sample text.
+
+\paragraph{Specify length}
+Even more sample text.
+
+\paragraph{Specify algorithm}
+You guessed it! More sample text.
+
+
+\subsubsection{Basic Constraints}
+
+\paragraph{Specify Type}
+Not even trying to come up with sample text.
+
+\paragraph{Specify path length}
+Path length is long as long you wish it.
+
+
+\subsection{Specifications}
+
+%TABLE START
+\begin{table}[h!]
+\centering
+\caption{Specifications}
+\label{my-label}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+                       &                               &                                          &                                                &                                            &                                                                             \\
+\multirow{-2}{*}{Tool} & \multirow{-2}{*}{CSR signing} & \multirow{-2}{*}{Privkey + signed chain} & \multirow{-2}{*}{Specify certificate validity} & \multirow{-2}{*}{SAN for end certificates} & \multirow{-2}{*}{\begin{tabular}[c]{@{}c@{}}Support for\\ CSP\end{tabular}} \\ \hline
+OpenSSL                & \cellcolor[HTML]{34FF34}Yes   & \cellcolor[HTML]{34FF34}Yes              & \cellcolor[HTML]{34FF34}Yes                    & \cellcolor[HTML]{34FF34}Yes                & \cellcolor[HTML]{34FF34}Yes                                                 \\ \hline
+Keygen                 &                               &                                          &                                                &                                            &                                                                             \\ \hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+%TABLE END
+
+\paragraph{Certificate Signing Request signing}
+Some random text.
+
+\paragraph{Create combination of private key and signed chain}
+Some random text.
+
+\paragraph{Specify certificate validity}
+Some random text.
+
+\paragraph{Setting Subject Alternative Name for end certificates}
+Some random text.
+
+\paragraph{Support for Cryptographic Service Provider}
+Some random text.
+
+
+\newpage
+
+\section{Conversions}
+
+%TABLE START
+\begin{table}[h!]
+\centering
+\caption{Conversions}
+\label{my-label}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+                        & \multicolumn{2}{c|}{Exporting}                                 &                                         &                                                                  \\ \cline{2-3}
+\multirow{-2}{*}{Tools} & Certificate/chain only from file & Private key only            & \multirow{-2}{*}{Direct JKS and PKCS12} & \multirow{-2}{*}{Import certificate and private key into a file} \\ \hline
+OpenSSL                 & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{FF3A3A}No              & \cellcolor[HTML]{34FF34}Yes                                      \\ \hline
+Keygen                  &                                  &                             &                                         &                                                                  \\ \hline
+                        &                                  &                             &                                         &                                                                  \\ \hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+%TABLE END
+
+
+\subsection{Exporting}
+
+\subsubsection{Certificate or certificate chain from a file}
+Some random text.
+
+\subsubsection{Private key only}
+Some random text.
+
+\subsection{Direct conversion between Java Keystore and PKCS\#12 file}
+Some random text.
+
+\subsection{Importing of certificates and keys into storage files}
+Some random text.
+
+
+\newpage
 
 \part{Tools}
 
