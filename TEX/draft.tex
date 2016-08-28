@@ -4,7 +4,7 @@
 \usepackage{multirow}
 \usepackage[table,xcdraw]{xcolor}
 \usepackage{adjustbox,lipsum}
-\usepackage{alltt} %for code snippets
+\usepackage{csquotes}
 
 \newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\} %used for better formating of some text
 
@@ -197,22 +197,26 @@ Possibility of importing (additional?) certificates and keys into storage files 
   \end{verbatim}
 \myparagraph{Importing PEM or DER encoded keys or certificates into PKCS\#12 file:}
   \begin{verbatim}
-  openssl pkcs12 -export -in file.pem -out file.p12 -name "My Certificate" -certfile othercerts.pem
+  openssl pkcs12 -export -in file.pem \
+          -inkey privateKeyFile.key -out file.p12 \
+          -name "My Certificate" -certfile othercerts.pem
   \end{verbatim}
 certfile option is used only if importing more certificates into a single PKCS\#12 file is wanted.
 
   
   \subsection{License}
-OpenSSL is free to use commercialy, however creating CA is not advised
-a) OPENSSL O'REILY page 59 
-b) hinted in manual pages.
-
+OpenSSL is free to use commercialy, however creating CA is not advised in O'REILLY's Network Security with OpenSSL by J. Viega, M. Messier and P. Chandra on page 59,
+\begin{displayquote}
+Since OpenSSL's command-line CA functionality was intended primarely as an example of how to use OpenSSL to build a CA, we don't recommend that you attempt to use it in a large production environment.
+\end{displayquote}
+and also hinted in manual pages:
+\begin{displayquote}
 The ca command is quirky and at times downright unfriendly.
 
 The ca utility was originally meant as an example of how to do things in a CA . It was not supposed to be used as a full blown CA itself: nevertheless some people are using it for this purpose.
 
 The ca command is effectively a single user command: no locking is done on the various files and attempts to run more than one ca command on the same database can have unpredictable results. 
-
+\end{displayquote}
   
 \section{Generation and signing of certificates}
 
@@ -223,17 +227,20 @@ The ca command is effectively a single user command: no locking is done on the v
       \paragraph{Self-signed certificate}
       It is possible to generate private key and self signed certificate with 
       \begin{verbatim}
-      openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout privateKey.key -out certificate_name.crt
+      openssl req -x509 -sha256 -nodes -days 365 \
+	      -newkey rsa:[length] -keyout privateKey.key \
+              -out certificate_name.crt
       \end{verbatim}
       
       \paragraph{Certificate Signing Request}
       It is possible to generate private key and CSR with
       \begin{verbatim}
-      openssl req -out CSR.csr -new -newkey rsa:2048 -nodes -keyout privateKey.key
+      openssl req -out CSR.csr -new -newkey rsa:[length] \
+              -nodes -keyout privateKey.key
       \end{verbatim}
       
       \paragraph{Specify length}
-      
+      Length is specified while generating key/certificate.
       
       \paragraph{Specify algorithm}
       Currently OpenSSL supports Public-key cryptography algorithms:
@@ -244,20 +251,50 @@ The ca command is effectively a single user command: no locking is done on the v
       
     \subsubsection{Basic constraints}
     
+    Basic constraints are defined in CA's openssl.cnf \verb+[ v3_req ]+ part.
+    \begin{verbatim}
+[ v3_req ]
+
+basicConstraints=critical,CA:<BOOL_VAL>, pathlen:<maxChainLengthInteger>
+    \end{verbatim}
+
       \paragraph{Specify Type}
-      
+To specify if generated certificate belongs to CA or is end certificate you choose \verb+<BOOL_VAL>+ true or false respectively.
       \paragraph{Specify path length}
-      
+Specifying of path length is made by setting a \verb+<maxCheinLengthInteger>+ to desired value (e.g. if generated certificate should be used only for generating end certificates the value is 0)
   \subsection{Specifications}
   
     \subsubsection{Certificate Signing Request signing}
-    
+   SR signing can be done by CA created in openSSL by command
+\begin{verbatim}
+openssl ca -config ca/openssl.cnf \
+        -extensions server_cert -days <validity_time>  \
+	-notext -md [message digest alg] -in ca/csr/www.example.com.csr.pem \
+        -out ca/certs/www.example.com.cert.pem
+\end{verbatim}
+
     \subsubsection{Create combination of private key and signed chain}
-    
+    First creation of the request is needed, after that request must be signed. To combine them together the creation of PKCS\#12 file is needed with commands:
+\begin{verbatim}
+	openssl pkcs12 -export -out outfilename.p12 \
+	        -in signed_certificate.crt -inkey privateKey.key \
+	        -chain -CAfile ca-all.crt -password pass:PASSWORD
+\end{verbatim}
     \subsubsection{Specify certificate validity}
-    
+    Time how long the certificate will be valid can be given in csr but only as a suggestion. Ultimately the real time of validity is always given by CA signing the CSR.
     \subsubsection{Setting Subject Alternative Name for end certificates}
-    
+    The Subject Alternative Name is also given in \verb+[ v3_req ]+ part of openssl.cnf that CA uses. It can be given as an IP address but also as a DNS name.
+
+\begin{verbatim}
+[ v3_req ]
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = example1.com
+DNS.2 = example2.com
+DNS.<next_number> = dns_webaddress.com
+\end{verbatim}
+
     \subsubsection{Support for Cryptographic Service Provider}
     
 \section{Conversions}
