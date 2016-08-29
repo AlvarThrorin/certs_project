@@ -296,6 +296,91 @@ DNS.<next_number> = dns_webaddress.com
 \end{verbatim}
 
     \subsubsection{Support for Cryptographic Service Provider}
+OpenSSL has native support for Cryptographic Service Provider since version 0.9.7 by creating PKCS\#12 file using -CSP option to set the cspname parameter
+
+%Not totally sure of this http://www.drh-consultancy.demon.co.uk/pkcs12faq.html is my refference
+    
+\section{Conversions}
+
+  \subsection{Exporting}
+  
+    \subsubsection{Certificate or certificate chain from a file}
+    To export certificate from a PKCS\#12 file use:
+\begin{verbatim}
+openssl pkcs12 -in name.[pfx|p12] -nokeys -clcerts -out name.pem
+\end{verbatim}
+
+    To export certificate chain from a PKCS\#12 file use:
+\begin{verbatim}
+openssl pkcs12 -in name.[pfx|p12] -nokeys -cacerts -out CAchain.pem
+\end{verbatim}
+    It should be mentioned that if there are multiple certificates in a chain they are all going to be in same output file.
+
+    \subsubsection{Private key only}
+    To export an encrypted private key use:
+\begin{verbatim}
+openssl pkcs12 -in name.[pfx|p12] -nocerts -out name.encrypted.priv.key
+\end{verbatim}
+
+    To export an unencrypted private key use:
+\begin{verbatim}
+openssl pkcs12 -in name.[pfx|p12] -nocerts -nodes -out name.unencrypted.priv.key
+\end{verbatim}
+
+
+  \subsection{Direct conversion between Java Keystore and PKCS\#12 file}
+Direct conversion between Java Keystore and PKCS\#12 type file is not supported by OpenSSL 
+  \subsection{Importing certificates and keys into storage files}
+To import certificate and private key into a single PKCS\#12 type file use:
+\begin{verbatim}
+ openssl pkcs12 -export -out certificate.pfx \
+         -inkey privateKey.key -in certificate.crt \
+         -certfile CACert.crt
+\end{verbatim}
+
+
+\chapter{Keygen}
+
+\section{General}
+
+  \subsection{Type}
+  
+  \subsection{View and information}
+  
+  \subsection{License}
+
+  
+\section{Generation and signing of certificates}
+
+  \subsection{Keys, certificates and basic constraints}
+  
+    \subsubsection{Generate keys}
+    
+      \paragraph{Self-signed certificate}
+      
+      \paragraph{Certificate Signing Request}
+      
+      \paragraph{Specify length}
+      
+      \paragraph{Specify algorithm}
+      
+    \subsubsection{Basic constraints}
+    
+      \paragraph{Specify Type}
+      
+      \paragraph{Specify path length}
+      
+  \subsection{Specifications}
+  
+    \subsubsection{Certificate Signing Request signing}
+    
+    \subsubsection{Create combination of private key and signed chain}
+    
+    \subsubsection{Specify certificate validity}
+    
+    \subsubsection{Setting Subject Alternative Name for end certificates}
+    
+    \subsubsection{Support for Cryptographic Service Provider}
     
 \section{Conversions}
 
@@ -309,9 +394,6 @@ DNS.<next_number> = dns_webaddress.com
   
   \subsection{Importing certificates and keys into storage files}
   
-
-
-\chapter{Keygen}
 
 
 
