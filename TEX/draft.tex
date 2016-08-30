@@ -344,9 +344,19 @@ To import certificate and private key into a single PKCS\#12 type file use:
 \section{General}
 
   \subsection{Type}
-  
+  Keytool has native support for both PKCS\#12 and Java KeyStore type files 
   \subsection{View and information}
-  
+  To view information about PEM or DER encoded certificate use:
+  \begin{verbatim}
+  keytool -printcert -file certificate.extention
+  \end{verbatim}
+
+  To view information about Jave KeyStore or PKCS\#12 encoded file use:
+  \begin{verbatim}
+  keytool -list -v -keystore store_file.[pfx|p12|jks]
+  \end{verbatim}
+
+  Viewing Public key part of certificate is not availiable in keytool.
   \subsection{License}
 
   
