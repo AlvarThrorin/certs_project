@@ -358,7 +358,7 @@ keytool -list -v -keystore store_file.[pfx|p12|jks]
 
 Viewing Public key part of certificate is not availiable in keytool.
   \subsection{License}
-
+%need to ask some things
   
 \section{Generation and signing of certificates}
 
@@ -380,13 +380,14 @@ Keytool natively supports only DSA of length in between 512 and 1024, and is con
 To generate a Certificate Signing Request generation of a key pair with alias is needed:
 \begin{verbatim}
 keytool -genkey -alias namealias -keyalg [RSA|DSA] \
-        –keysize [length] -keystore [keystore_path | new_keystore_name]
+        -keysize [length] -keystore [keystore_path | new_keystore_name]
 \end{verbatim}
 To create a CSR you then need to do:
 \begin{verbatim}
 keytool -certreq -keyalg [keyalg_from_genkey] -alias [alias_from_genkey] -file certreq.csr -keystore [jks_from_genkey]
 \end{verbatim}
 Where you need to set -keyalg -alias and -keystore as chosen when generating key pair earlier.
+
       \paragraph{Specify length}
 Length is specified when generating keys, RSA support for up to 4096, DSA support from 512 up to 1024.
 
@@ -396,8 +397,10 @@ Algorithm is specified while generating key pair, currently support for DSA, RSA
     
       \paragraph{Specify Type}
 With keytool alone it is not possible to make CA certificate.
+
       \paragraph{Specify path length}
 Specifying of path length is not availiable.
+
   \subsection{Specifications}
   
     \subsubsection{Certificate Signing Request signing}
@@ -406,19 +409,47 @@ Keytool cannot be used to sign Certificate Signing Request.
     
     \subsubsection{Specify certificate validity}
 Specification of certificate validity is set when generating key pair in \verb+-validity [time]+ option.
+
     \subsubsection{Setting Subject Alternative Name for end certificates}
-To set a Subject Alternative Name for certificate use \verb+-ext san=dns:www.dnsexample.com,ip:1.1.1.1+ which will add SAN to certificate   
+To set a Subject Alternative Name for certificate use \verb+-ext san=dns:www.dnsexample.com,ip:1.1.1.1+ option which will add SAN to certificate.
+
     \subsubsection{Support for Cryptographic Service Provider}
+%unsure about that but http://stackoverflow.com/questions/6866447/keytool-error-java-security-keystoreexception-bks-not-found
     
 \section{Conversions}
 
   \subsection{Exporting}
   
     \subsubsection{Certificate or certificate chain from a file}
-    
+To export certificate with alias \verb+myalias+ use:
+\begin{verbatim}
+keytool -export -alias myalias -file [output.crt] -keystore [source_keystore.jks]
+\end{verbatim}  
+Exported certificate will be DER encoded.
+
+Exporting of certificate chain from a Java KeyStore is not availiable using keytool.
+
     \subsubsection{Private key only}
 Exporting of private key only is not availiable in keytool.
+
   \subsection{Direct conversion between Java Keystore and PKCS\#12 file}
+Conversion between Java KeyStore and PKCS\#12 file is availiable. To convert Java KeyStore file to PKCS\#12 use:
+\begin{verbatim}
+keytool -importkeystore -srckeystore [existing_keystore.jks] \
+        -destkeystore [destination_filename.p12|pfx] -srcstoretype JKS \
+        -deststoretype PKCS12 -srcstorepass [.jks password] \
+        -deststorepass [same as .jks password] -srcalias [source_alias] \
+        -destalias [source_alias] -srckeypass [source_key_password] \
+        -destkeypass [source_key_password] -noprompt
+\end{verbatim}
+
+To convert PKCS\#12 to JKS use:
+\begin{verbatim}
+keytool -importkeystore -srckeystore [PKCS12_file.pfx|.p12] \
+        -srcstoretype pkcs12 -destkeystore [dest_keystore_name.jks] \
+        -deststoretype JKS
+\end{verbatim}
+
   
   \subsection{Importing certificates and keys into storage files}
   
