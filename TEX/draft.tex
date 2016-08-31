@@ -344,19 +344,19 @@ To import certificate and private key into a single PKCS\#12 type file use:
 \section{General}
 
   \subsection{Type}
-  Keytool has native support for both PKCS\#12 and Java KeyStore type files 
+Keytool has native support for both PKCS\#12 and Java KeyStore type files 
   \subsection{View and information}
-  To view information about PEM or DER encoded certificate use:
-  \begin{verbatim}
-  keytool -printcert -file certificate.extention
-  \end{verbatim}
+To view information about PEM or DER encoded certificate use:
+\begin{verbatim}
+keytool -printcert -file certificate.extention
+\end{verbatim}
 
-  To view information about Jave KeyStore or PKCS\#12 encoded file use:
-  \begin{verbatim}
-  keytool -list -v -keystore store_file.[pfx|p12|jks]
-  \end{verbatim}
+To view information about Jave KeyStore or PKCS\#12 encoded file use:
+\begin{verbatim}
+keytool -list -v -keystore store_file.[pfx|p12|jks]
+\end{verbatim}
 
-  Viewing Public key part of certificate is not availiable in keytool.
+Viewing Public key part of certificate is not availiable in keytool.
   \subsection{License}
 
   
@@ -367,13 +367,31 @@ To import certificate and private key into a single PKCS\#12 type file use:
     \subsubsection{Generate keys}
     
       \paragraph{Self-signed certificate}
-      
+To generate new key pair and self-signed certificate use:
+\begin{verbatim}
+keytool -genkey -keyalg [RSA|DSA] -alias [alisaname] \
+        -keystore [keystore_file] -storepass [password] \
+        -validity [time] -keysize [length]
+\end{verbatim}
+
+Keytool natively supports only DSA of length in between 512 and 1024, and is considered to be dangerous to use. RSA with key length of at least 2048 is preffered.
+
       \paragraph{Certificate Signing Request}
-      
+To generate a Certificate Signing Request generation of a key pair with alias is needed:
+\begin{verbatim}
+keytool -genkey -alias namealias -keyalg [RSA|DSA] \
+        –keysize [length] -keystore [keystore_path | new_keystore_name]
+\end{verbatim}
+To create a CSR you then need to do:
+\begin{verbatim}
+keytool -certreq -keyalg [keyalg_from_genkey] -alias [alias_from_genkey] -file certreq.csr -keystore [jks_from_genkey]
+\end{verbatim}
+Where you need to set -keyalg -alias and -keystore as chosen when generating key pair earlier.
       \paragraph{Specify length}
-      
+Length is specified when generating keys, RSA support for up to 4096, DSA support from 512 up to 1024.
+
       \paragraph{Specify algorithm}
-      
+Algorithm is specified while generating key pair, currently support for DSA, RSA. EC is needed to be implemented.      
     \subsubsection{Basic constraints}
     
       \paragraph{Specify Type}
