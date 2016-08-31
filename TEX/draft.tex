@@ -395,19 +395,19 @@ Algorithm is specified while generating key pair, currently support for DSA, RSA
     \subsubsection{Basic constraints}
     
       \paragraph{Specify Type}
-      
+With keytool alone it is not possible to make CA certificate.
       \paragraph{Specify path length}
-      
+Specifying of path length is not availiable.
   \subsection{Specifications}
   
     \subsubsection{Certificate Signing Request signing}
-    
+Keytool cannot be used to sign Certificate Signing Request.
     \subsubsection{Create combination of private key and signed chain}
     
     \subsubsection{Specify certificate validity}
-    
+Specification of certificate validity is set when generating key pair in \verb+-validity [time]+ option.
     \subsubsection{Setting Subject Alternative Name for end certificates}
-    
+To set a Subject Alternative Name for certificate use \verb+-ext san=dns:www.dnsexample.com,ip:1.1.1.1+ which will add SAN to certificate   
     \subsubsection{Support for Cryptographic Service Provider}
     
 \section{Conversions}
@@ -417,7 +417,7 @@ Algorithm is specified while generating key pair, currently support for DSA, RSA
     \subsubsection{Certificate or certificate chain from a file}
     
     \subsubsection{Private key only}
-    
+Exporting of private key only is not availiable in keytool.
   \subsection{Direct conversion between Java Keystore and PKCS\#12 file}
   
   \subsection{Importing certificates and keys into storage files}
