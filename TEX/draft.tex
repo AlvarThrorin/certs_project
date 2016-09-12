@@ -35,12 +35,14 @@
 \caption{Overwiew General}
 \label{my-label}
 \begin{adjustbox}{max width=\textwidth}
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|}
 \hline
-                        & \multicolumn{3}{c|}{General}                   \\ \cline{2-4} 
-\multirow{-2}{*}{Tools} & Type   & View and information        & License \\ \hline
-OpenSSL                 & PKCS12 & \cellcolor[HTML]{34FF34}Yes & Public  \\ \hline
-Keygen                  & JKS    & \cellcolor[HTML]{34FF34}Yes & Public  \\ \hline
+                        & \multicolumn{4}{c|}{General}                                                             \\ \cline{2-5} 
+\multirow{-2}{*}{Tools} & Type   & View + info                                        & License & Operating System \\ \hline
+OpenSSL                 & PKCS12 & \cellcolor[HTML]{34FF34}Yes                        & Public  & Both             \\ \hline
+Keygen                  & JKS    & \cellcolor[HTML]{34FF34}{\color[HTML]{000000} Yes} & Public  & Both             \\ \hline
+GnuPG                   &        &                                                    &         &                  \\ \hline
+Keystore Explorer       &        &                                                    &         &                  \\ \hline
 \end{tabular}
 \end{adjustbox}
 \end{table}
@@ -55,6 +57,8 @@ This section shows whether it is possible to view certificates or keys and addit
 \subsection{License}
 Type of license and possibility of using said tool for testing or production code. Public means that license is not requiered for use in production code but does not mean that it should be used as such. Definition if it is advised to use said tool in production code or only in testing enviroment will be talked about in the next chapter under each tool.
 
+\subsection{Operating Systems}
+In this part the Operating System where the tool is imported is defined. Both means that it is implemented under UNIX like systems and Windows systems. Otherwise the Operating System is defined (Windows | UNIX).
 
 \newpage
 
@@ -71,7 +75,9 @@ Type of license and possibility of using said tool for testing or production cod
                        & \multicolumn{4}{c|}{Generate keys}                                                                                                                             & \multicolumn{2}{c|}{Basic Constraints}                    \\ \cline{2-7} 
 \multirow{-2}{*}{Tool} & \begin{tabular}[c]{@{}c@{}}+\\  self-signed certificate\end{tabular} & + CSR                       & Specify length              & Specify algorithm           & Specify Type                & Specify path length         \\ \hline
 OpenSSL                & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
-Keygen                 &                                                                      &                             &                             &                             &                             &                             \\ \hline
+Keytool                & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
+GnuPG                  &                                                                      &                             &                             &                             &                             &                             \\ \hline
+Keystore explorer      &                                                                      &                             &                             &                             &                             &                             \\ \hline
 \end{tabular}
 \end{adjustbox}
 \end{table}
@@ -114,7 +120,9 @@ specify the maximum length of certificate authority chain
                        &                               &                                          &                                                &                                            &                                                                             \\
 \multirow{-2}{*}{Tool} & \multirow{-2}{*}{CSR signing} & \multirow{-2}{*}{Privkey + signed chain} & \multirow{-2}{*}{Specify certificate validity} & \multirow{-2}{*}{SAN for end certificates} & \multirow{-2}{*}{\begin{tabular}[c]{@{}c@{}}Support for\\ CSP\end{tabular}} \\ \hline
 OpenSSL                & \cellcolor[HTML]{34FF34}Yes   & \cellcolor[HTML]{34FF34}Yes              & \cellcolor[HTML]{34FF34}Yes                    & \cellcolor[HTML]{34FF34}Yes                & \cellcolor[HTML]{34FF34}Yes                                                 \\ \hline
-Keygen                 &                               &                                          &                                                &                                            &                                                                             \\ \hline
+Keygen                 & \cellcolor[HTML]{34FF34}Yes   & \cellcolor[HTML]{34FF34}Yes              & \cellcolor[HTML]{34FF34}Yes                    & \cellcolor[HTML]{34FF34}Yes                & \cellcolor[HTML]{34FF34}Yes                                                 \\ \hline
+GnuPG                  &                               &                                          &                                                &                                            &                                                                             \\ \hline
+Keystore explorer      &                               &                                          &                                                &                                            &                                                                             \\ \hline
 \end{tabular}
 \end{adjustbox}
 \end{table}
@@ -146,11 +154,13 @@ whether the use, choosing and changing of Cryptographic Service Provider is supp
 \begin{adjustbox}{max width=\textwidth}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
+                        & \multicolumn{4}{c|}{Conversions}                                                                                                                                            \\ \cline{2-5} 
                         & \multicolumn{2}{c|}{Exporting}                                 &                                         &                                                                  \\ \cline{2-3}
-\multirow{-2}{*}{Tools} & Certificate/chain only from file & Private key only            & \multirow{-2}{*}{Direct JKS and PKCS12} & \multirow{-2}{*}{Import certificate and private key into a file} \\ \hline
+\multirow{-3}{*}{Tools} & Certificate/chain only from file & Private key only            & \multirow{-2}{*}{Direct JKS and PKCS12} & \multirow{-2}{*}{Import certificate and private key into a file} \\ \hline
 OpenSSL                 & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{FF3A3A}No              & \cellcolor[HTML]{34FF34}Yes                                      \\ \hline
-Keygen                  &                                  &                             &                                         &                                                                  \\ \hline
-                        &                                  &                             &                                         &                                                                  \\ \hline
+Keygen                  & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HTML]{FE0000}No  & \cellcolor[HTML]{34FF34}Yes             & \cellcolor[HTML]{34FF34}Yes                                      \\ \hline
+GnuPG                   &                                  &                             &                                         &                                                                  \\ \hline
+Keystore explorer       &                                  &                             &                                         &                                                                  \\ \hline
 \end{tabular}
 \end{adjustbox}
 \end{table}
@@ -339,7 +349,7 @@ To import certificate and private key into a single PKCS\#12 type file use:
 \end{verbatim}
 
 
-\chapter{Keygen}
+\chapter{Keytool}
 
 \section{General}
 
@@ -358,7 +368,7 @@ keytool -list -v -keystore store_file.[pfx|p12|jks]
 
 Viewing Public key part of certificate is not availiable in keytool.
   \subsection{License}
-%need to ask some things
+Keytool is free to use in production code and is licensed under Apache Licence Version 2.0. For more detailed description look at http://www.apache.org/licenses/LICENSE-2.0.txt
   
 \section{Generation and signing of certificates}
 
@@ -397,17 +407,23 @@ Algorithm is specified while generating key pair, currently support for DSA, RSA
     \subsubsection{Basic constraints}
     
       \paragraph{Specify Type}
-With keytool you can make a self-signed CA certificate by using \verb+-ext ca:true+ option.
+With keytool you can make a self-signed CA certificate by using \verb+-ext BC=ca:[true|false]+ option.
 
       \paragraph{Specify path length}
 Specifying of path length is possible while making a certificate by using  \\
-\verb+-ext pathlen:[int path length]+ option.
+\verb+-ext BC=pathlen:[int path length]+ option.
 
   \subsection{Specifications}
   
     \subsubsection{Certificate Signing Request signing}
-Keytool cannot be used to sign Certificate Signing Request. It can import certificate signed by CA but as a standalone tool cannot sign a CSR with a CA cert.
-%I'm sorry but i haven't found a way to sign a CSR with CA cert with keytool alone
+Keytool can sign a CSR if a CA certificate and a keystore containing it are avaliable:
+\begin{verbatim}
+keytool -gencert -rfc -keystore [root_keystore.jks] \
+        -alias [CA_cert_alias] -storepass [store_password] \
+        -infile [CSR_file.csr] -validity <int_length> \
+        -outfile [output_certificate.crt] -ext BC=ca:[true|false] \
+        -ext SAN=ip:<IP_address>,dn:<DNS_address> 
+\end{verbatim}
 
     \subsubsection{Create combination of private key and signed chain}
 You can import a key pair into a Java KeyStore file along with signed chain if the signed chain is provided and a CA certificate is imported into said Java Keystore.
@@ -418,7 +434,7 @@ Specification of certificate validity is set when generating key pair in \verb+-
 To set a Subject Alternative Name for certificate use \verb+-ext san=dns:www.dnsexample.com,ip:1.1.1.1+ option which will add SAN to certificate.
 
     \subsubsection{Support for Cryptographic Service Provider}
-Support for Cryptographic service provider is native but there is need for a definition of path where the CSR is located.
+Support for Cryptographic Service Provider is native but there is need for a definition of path where the CSP is located.
 \begin{verbatim}
 -storetype [keystore_type_of_implementation]
 -provider [provider_implementation_name]
@@ -469,6 +485,118 @@ keytool -import -alias [certificate_chosen_alias] \
 \end{verbatim}
 
 Importing of keys alone is not supported, you need to fold them into a Java KeyStore or PKCS\#12 file first.
+
+\chapter{GnuPG}
+
+\section{General}
+
+  \subsection{Type}
+  
+  \subsection{View and information}
+  
+  \subsection{License}
+
+  
+\section{Generation and signing of certificates}
+
+  \subsection{Keys, certificates and basic constraints}
+  
+    \subsubsection{Generate keys}
+    
+      \paragraph{Self-signed certificate}
+      
+      \paragraph{Certificate Signing Request}
+      
+      \paragraph{Specify length}
+      
+      \paragraph{Specify algorithm}
+      
+    \subsubsection{Basic constraints}
+    
+      \paragraph{Specify Type}
+      
+      \paragraph{Specify path length}
+      
+  \subsection{Specifications}
+  
+    \subsubsection{Certificate Signing Request signing}
+    
+    \subsubsection{Create combination of private key and signed chain}
+    
+    \subsubsection{Specify certificate validity}
+    
+    \subsubsection{Setting Subject Alternative Name for end certificates}
+    
+    \subsubsection{Support for Cryptographic Service Provider}
+    
+\section{Conversions}
+
+  \subsection{Exporting}
+  
+    \subsubsection{Certificate or certificate chain from a file}
+    
+    \subsubsection{Private key only}
+    
+  \subsection{Direct conversion between Java Keystore and PKCS\#12 file}
+  
+  \subsection{Importing certificates and keys into storage files}
+  
+\chapter{Keystore Explorer}
+
+\section{General}
+
+  \subsection{Type}
+  
+  \subsection{View and information}
+  
+  \subsection{License}
+
+  
+\section{Generation and signing of certificates}
+
+  \subsection{Keys, certificates and basic constraints}
+  
+    \subsubsection{Generate keys}
+    
+      \paragraph{Self-signed certificate}
+      
+      \paragraph{Certificate Signing Request}
+      
+      \paragraph{Specify length}
+      
+      \paragraph{Specify algorithm}
+      
+    \subsubsection{Basic constraints}
+    
+      \paragraph{Specify Type}
+      
+      \paragraph{Specify path length}
+      
+  \subsection{Specifications}
+  
+    \subsubsection{Certificate Signing Request signing}
+    
+    \subsubsection{Create combination of private key and signed chain}
+    
+    \subsubsection{Specify certificate validity}
+    
+    \subsubsection{Setting Subject Alternative Name for end certificates}
+    
+    \subsubsection{Support for Cryptographic Service Provider}
+    
+\section{Conversions}
+
+  \subsection{Exporting}
+  
+    \subsubsection{Certificate or certificate chain from a file}
+    
+    \subsubsection{Private key only}
+    
+  \subsection{Direct conversion between Java Keystore and PKCS\#12 file}
+  
+  \subsection{Importing certificates and keys into storage files}
+  
+
 
 
 %TEMPLATE FOR ALL OTHER TOOLS
