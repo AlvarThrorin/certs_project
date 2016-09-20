@@ -491,11 +491,11 @@ Importing of keys alone is not supported, you need to fold them into a Java KeyS
 \section{General}
 
   \subsection{Type}
-  
+The type of file with which GnuPG works is a .gpg encoded in OpenPGP standard. As I understood the OpenPGP is competing standard to X509 standard.  
   \subsection{View and information}
   
   \subsection{License}
-
+GnuPG is free to use both for testing and in production code.
   
 \section{Generation and signing of certificates}
 
@@ -504,7 +504,7 @@ Importing of keys alone is not supported, you need to fold them into a Java KeyS
     \subsubsection{Generate keys}
     
       \paragraph{Self-signed certificate}
-      
+Generation of keys and self-signed certificate is not supported. In older versions it was possigle with \verb+gpgm+
       \paragraph{Certificate Signing Request}
       
       \paragraph{Specify length}
@@ -540,17 +540,19 @@ Importing of keys alone is not supported, you need to fold them into a Java KeyS
   \subsection{Direct conversion between Java Keystore and PKCS\#12 file}
   
   \subsection{Importing certificates and keys into storage files}
-  
+ 
+
+%KEYSTORE EXPLORER PART 
 \chapter{Keystore Explorer}
 
 \section{General}
 
   \subsection{Type}
-  
+Keystore Explorer supports both Java Keystore and PKCS\#12 type files, in addition it has a support for alternatives to JKS such as JCEKS, BKS, BKS-V1, UBER.
   \subsection{View and information}
-  
+You can view certificates and additional information with Keystore Explorer, view public and private key parts of certificates and other info such as subject alternative names.
   \subsection{License}
-
+Keystore Explorer is free to use utility, License is public.
   
 \section{Generation and signing of certificates}
 
@@ -559,7 +561,10 @@ Importing of keys alone is not supported, you need to fold them into a Java KeyS
     \subsubsection{Generate keys}
     
       \paragraph{Self-signed certificate}
-      
+It is possible to generate a key pair and self-signed certificate, simply clic on icon or double clic on blank space, choose algorithm and key length. Then you can choose all the other options such as Basic Constraints and Subject Alternative Name.
+%place for screenshots, will do from Windows.
+You can also set up deaful pre-fill of Common Name, Organisational Unit, Organisation etc.
+%pictures of setting
       \paragraph{Certificate Signing Request}
       
       \paragraph{Specify length}
