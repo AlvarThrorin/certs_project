@@ -566,43 +566,41 @@ It is possible to generate a key pair and self-signed certificate, simply clic o
 You can also set up deaful pre-fill of Common Name, Organisational Unit, Organisation etc.
 %pictures of setting
       \paragraph{Certificate Signing Request}
-      
+It is possible to make Certificate Signing Request in Keystore Explorer. Simply generate keys and then do not change Basic Constraints v3 part of certificate.      
       \paragraph{Specify length}
-      
+Length can be specifyied when making key but ultimately it is confirmed by Certificate Authority when signing a CSR.
       \paragraph{Specify algorithm}
-      
+Algorithm is specified when generating keys and also confirmed by certificate authority.
     \subsubsection{Basic constraints}
     
       \paragraph{Specify Type}
-      
+Specifying type is made while generating keys and certificate by changing v3 portion when asked during generation.
       \paragraph{Specify path length}
-      
+Specifying of path length is made also by changing v3 part of x509 certificate during generation under Basic Constraints type.
   \subsection{Specifications}
   
     \subsubsection{Certificate Signing Request signing}
-    
+To sign a Certificate Signing Request simply right-click a Certificate Authority certificate and use the sign with option.
     \subsubsection{Create combination of private key and signed chain}
     
     \subsubsection{Specify certificate validity}
-    
+Desired duration of certificate validity is asked during generation, but given whilst signing a Certificate Signing Request by Certificate Authority
     \subsubsection{Setting Subject Alternative Name for end certificates}
-    
+Setting of Subject Alternative Name for certificate is made during generation of CSR, under the v3 part of certificate under the Basic Constraints type.
     \subsubsection{Support for Cryptographic Service Provider}
-    
+As Far as i know there is not support for using CSP.
 \section{Conversions}
 
   \subsection{Exporting}
   
     \subsubsection{Certificate or certificate chain from a file}
-    
+It is possible to export a certificate from a keystore type by simply right-clicking the chosen certificate and chosing export option.
     \subsubsection{Private key only}
-    
+It is possible to export a private key from a keystore type by simply right-clicking the chosen certificate and chosing export->private key option.
   \subsection{Direct conversion between Java Keystore and PKCS\#12 file}
   
   \subsection{Importing certificates and keys into storage files}
-  
-
-
+ It is possible to import a certificate and/or key by chosing Import option.
 
 %TEMPLATE FOR ALL OTHER TOOLS
 \chapter{Tool Page Template}
