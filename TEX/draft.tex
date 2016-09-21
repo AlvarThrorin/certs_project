@@ -5,7 +5,7 @@
 \usepackage[table,xcdraw]{xcolor}
 \usepackage{adjustbox,lipsum}
 \usepackage{csquotes}
-
+\usepackage{graphicx}
 \newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\} %used for better formating of some text
 
 \setlength{\oddsidemargin}{0cm}
@@ -37,12 +37,12 @@
 \begin{adjustbox}{max width=\textwidth}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-                        & \multicolumn{4}{c|}{General}                                                             \\ \cline{2-5} 
-\multirow{-2}{*}{Tools} & Type   & View + info                                        & License & Operating System \\ \hline
-OpenSSL                 & PKCS12 & \cellcolor[HTML]{34FF34}Yes                        & Public  & Both             \\ \hline
-Keygen                  & JKS    & \cellcolor[HTML]{34FF34}{\color[HTML]{000000} Yes} & Public  & Both             \\ \hline
-GnuPG                   &        &                                                    &         &                  \\ \hline
-Keystore Explorer       &        &                                                    &         &                  \\ \hline
+                        & \multicolumn{4}{c|}{General}                                                                               \\ \cline{2-5} 
+\multirow{-2}{*}{Tools} & Type   & View + info                                        & License & Operating System                   \\ \hline
+OpenSSL                 & PKCS12 & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{34FF34}Both       \\ \hline
+Keytool                 & JKS    & \cellcolor[HTML]{34FF34}{\color[HTML]{000000} Yes} & Public  & \cellcolor[HTML]{34FF34}Both       \\ \hline
+GnuPG                   &        &                                                    &         &                                    \\ \hline
+Keystore Explorer       & Both   & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{FFC702}Win | OS X \\ \hline
 \end{tabular}
 \end{adjustbox}
 \end{table}
@@ -77,7 +77,7 @@ In this part the Operating System where the tool is imported is defined. Both me
 OpenSSL                & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
 Keytool                & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
 GnuPG                  &                                                                      &                             &                             &                             &                             &                             \\ \hline
-Keystore explorer      &                                                                      &                             &                             &                             &                             &                             \\ \hline
+Keystore explorer      & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
 \end{tabular}
 \end{adjustbox}
 \end{table}
@@ -120,9 +120,9 @@ specify the maximum length of certificate authority chain
                        &                               &                                          &                                                &                                            &                                                                             \\
 \multirow{-2}{*}{Tool} & \multirow{-2}{*}{CSR signing} & \multirow{-2}{*}{Privkey + signed chain} & \multirow{-2}{*}{Specify certificate validity} & \multirow{-2}{*}{SAN for end certificates} & \multirow{-2}{*}{\begin{tabular}[c]{@{}c@{}}Support for\\ CSP\end{tabular}} \\ \hline
 OpenSSL                & \cellcolor[HTML]{34FF34}Yes   & \cellcolor[HTML]{34FF34}Yes              & \cellcolor[HTML]{34FF34}Yes                    & \cellcolor[HTML]{34FF34}Yes                & \cellcolor[HTML]{34FF34}Yes                                                 \\ \hline
-Keygen                 & \cellcolor[HTML]{34FF34}Yes   & \cellcolor[HTML]{34FF34}Yes              & \cellcolor[HTML]{34FF34}Yes                    & \cellcolor[HTML]{34FF34}Yes                & \cellcolor[HTML]{34FF34}Yes                                                 \\ \hline
+Keytool                & \cellcolor[HTML]{34FF34}Yes   & \cellcolor[HTML]{34FF34}Yes              & \cellcolor[HTML]{34FF34}Yes                    & \cellcolor[HTML]{34FF34}Yes                & \cellcolor[HTML]{34FF34}Yes                                                 \\ \hline
 GnuPG                  &                               &                                          &                                                &                                            &                                                                             \\ \hline
-Keystore explorer      &                               &                                          &                                                &                                            &                                                                             \\ \hline
+Keystore explorer      & \cellcolor[HTML]{34FF34}Yes   & \cellcolor[HTML]{34FF34}Yes              & \cellcolor[HTML]{34FF34}Yes                    & \cellcolor[HTML]{34FF34}Yes                & \cellcolor[HTML]{FE0000}No                                                  \\ \hline
 \end{tabular}
 \end{adjustbox}
 \end{table}
@@ -160,7 +160,7 @@ whether the use, choosing and changing of Cryptographic Service Provider is supp
 OpenSSL                 & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{FF3A3A}No              & \cellcolor[HTML]{34FF34}Yes                                      \\ \hline
 Keygen                  & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HTML]{FE0000}No  & \cellcolor[HTML]{34FF34}Yes             & \cellcolor[HTML]{34FF34}Yes                                      \\ \hline
 GnuPG                   &                                  &                             &                                         &                                                                  \\ \hline
-Keystore explorer       &                                  &                             &                                         &                                                                  \\ \hline
+Keystore explorer       & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes             & \cellcolor[HTML]{34FF34}Yes                                      \\ \hline
 \end{tabular}
 \end{adjustbox}
 \end{table}
@@ -549,8 +549,10 @@ Generation of keys and self-signed certificate is not supported. In older versio
 
   \subsection{Type}
 Keystore Explorer supports both Java Keystore and PKCS\#12 type files, in addition it has a support for alternatives to JKS such as JCEKS, BKS, BKS-V1, UBER.
+
+\includegraphics{../Dependancies/Keystore_Explorer/Type.jpg}
   \subsection{View and information}
-You can view certificates and additional information with Keystore Explorer, view public and private key parts of certificates and other info such as subject alternative names.
+You can view certificates and additional information with Keystore Explorer, view public and private key parts of certificates and other info such as subject alternative names by right clicking a certificate and choosing viable option from View option.
   \subsection{License}
 Keystore Explorer is free to use utility, License is public.
   
@@ -561,32 +563,40 @@ Keystore Explorer is free to use utility, License is public.
     \subsubsection{Generate keys}
     
       \paragraph{Self-signed certificate}
-It is possible to generate a key pair and self-signed certificate, simply clic on icon or double clic on blank space, choose algorithm and key length. Then you can choose all the other options such as Basic Constraints and Subject Alternative Name.
-%place for screenshots, will do from Windows.
-You can also set up deaful pre-fill of Common Name, Organisational Unit, Organisation etc.
-%pictures of setting
+It is possible to generate a key pair and self-signed certificate, simply click on icon or double click on blank space, choose algorithm and key length. Then you can choose all the other options such as Basic Constraints and Subject Alternative Name.
+
+\includegraphics{../Dependancies/Keystore_Explorer/genKeys.jpg}
+\includegraphics{../Dependancies/Keystore_Explorer/genCert.jpg}
+You can also set up default pre-fill of Common Name, Organisational Unit, Organisation etc.
+
       \paragraph{Certificate Signing Request}
-It is possible to make Certificate Signing Request in Keystore Explorer. Simply generate keys and then do not change Basic Constraints v3 part of certificate.      
+It is possible to make Certificate Signing Request in Keystore Explorer. Simply generate key pair certificate and then right click the generated certificate and choose Generate CSR option.
+\includegraphics{../Dependancies/Keystore_Explorer/genCSR.jpg}
       \paragraph{Specify length}
-Length can be specifyied when making key but ultimately it is confirmed by Certificate Authority when signing a CSR.
+Length is specified at the moment of key pair generation.
       \paragraph{Specify algorithm}
-Algorithm is specified when generating keys and also confirmed by certificate authority.
+Algorithm of keys is specified when generating keys and the certificate hash function is chosen by certificate authority.
     \subsubsection{Basic constraints}
-    
+
+\includegraphics{../Dependancies/Keystore_Explorer/Basic_Constraints.jpg}
+
       \paragraph{Specify Type}
 Specifying type is made while generating keys and certificate by changing v3 portion when asked during generation.
       \paragraph{Specify path length}
-Specifying of path length is made also by changing v3 part of x509 certificate during generation under Basic Constraints type.
+Specifying of max path length is made also by changing v3 part of x509 certificate during generation under Basic Constraints type.
   \subsection{Specifications}
   
     \subsubsection{Certificate Signing Request signing}
-To sign a Certificate Signing Request simply right-click a Certificate Authority certificate and use the sign with option.
+To sign a Certificate Signing Request simply right-click a Certificate Authority certificate and use the sign->CSR option. Then you need to import CA response that was generated in a desired place into a certificate from which the CSR was generated.
+
+\includegraphics{../Dependancies/Keystore_Explorer/CSRsign.jpg}
     \subsubsection{Create combination of private key and signed chain}
-    
+To create combination of private key simply generate new key pair certificate, export private key part, import it back and then import to new certificate of private key a trusted chain.
+
     \subsubsection{Specify certificate validity}
 Desired duration of certificate validity is asked during generation, but given whilst signing a Certificate Signing Request by Certificate Authority
     \subsubsection{Setting Subject Alternative Name for end certificates}
-Setting of Subject Alternative Name for certificate is made during generation of CSR, under the v3 part of certificate under the Basic Constraints type.
+Setting of Subject Alternative Name for certificate is made during generation of certificate, under the add extentions option under the Subject Alternative Name part. Keystore Explorer allows to add both DNS and IP formats of SAN.
     \subsubsection{Support for Cryptographic Service Provider}
 As Far as i know there is not support for using CSP.
 \section{Conversions}
@@ -594,13 +604,15 @@ As Far as i know there is not support for using CSP.
   \subsection{Exporting}
   
     \subsubsection{Certificate or certificate chain from a file}
-It is possible to export a certificate from a keystore type by simply right-clicking the chosen certificate and chosing export option.
+It is possible to export a certificate or certificate chain from a keystore by simply right-clicking the chosen certificate and chosing export option.
     \subsubsection{Private key only}
-It is possible to export a private key from a keystore type by simply right-clicking the chosen certificate and chosing export->private key option.
+It is possible to export a private key from a keystore by simply right-clicking the chosen certificate and chosing export->private key option.
+
   \subsection{Direct conversion between Java Keystore and PKCS\#12 file}
+To change a type of file simply right-click on the blank space and choose change type option. In addition to changing a pkcs12 file type to JKS it is possible to change type of files between all supported types of Keystore Explorer.
   
   \subsection{Importing certificates and keys into storage files}
- It is possible to import a certificate and/or key by chosing Import option.
+It is possible to import a certificate and/or key by chosing Import option.
 
 %TEMPLATE FOR ALL OTHER TOOLS
 \chapter{Tool Page Template}
