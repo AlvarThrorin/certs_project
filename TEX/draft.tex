@@ -43,6 +43,7 @@ OpenSSL                 & PKCS12 & \cellcolor[HTML]{34FF34}Yes                  
 Keytool                 & JKS    & \cellcolor[HTML]{34FF34}{\color[HTML]{000000} Yes} & Public  & \cellcolor[HTML]{34FF34}Both       \\ \hline
 GnuPG                   &        &                                                    &         &                                    \\ \hline
 Keystore Explorer       & Both   & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{FFC702}Win | OS X \\ \hline
+XCA                     & PKCS12 & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{34FF34}Both       \\ \hline
 \end{tabular}
 \end{adjustbox}
 \end{table}
@@ -78,6 +79,7 @@ OpenSSL                & \cellcolor[HTML]{34FF34}Yes                            
 Keytool                & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
 GnuPG                  &                                                                      &                             &                             &                             &                             &                             \\ \hline
 Keystore explorer      & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
+XCA                    & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
 \end{tabular}
 \end{adjustbox}
 \end{table}
@@ -123,6 +125,7 @@ OpenSSL                & \cellcolor[HTML]{34FF34}Yes   & \cellcolor[HTML]{34FF34
 Keytool                & \cellcolor[HTML]{34FF34}Yes   & \cellcolor[HTML]{34FF34}Yes              & \cellcolor[HTML]{34FF34}Yes                    & \cellcolor[HTML]{34FF34}Yes                & \cellcolor[HTML]{34FF34}Yes                                                 \\ \hline
 GnuPG                  &                               &                                          &                                                &                                            &                                                                             \\ \hline
 Keystore explorer      & \cellcolor[HTML]{34FF34}Yes   & \cellcolor[HTML]{34FF34}Yes              & \cellcolor[HTML]{34FF34}Yes                    & \cellcolor[HTML]{34FF34}Yes                & \cellcolor[HTML]{FE0000}No                                                  \\ \hline
+XCA                    & \cellcolor[HTML]{34FF34}Yes   & \cellcolor[HTML]{34FF34}Yes              & \cellcolor[HTML]{34FF34}Yes                    & \cellcolor[HTML]{34FF34}Yes                & ???                                                                         \\ \hline
 \end{tabular}
 \end{adjustbox}
 \end{table}
@@ -161,6 +164,7 @@ OpenSSL                 & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HTML]{34
 Keygen                  & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HTML]{FE0000}No  & \cellcolor[HTML]{34FF34}Yes             & \cellcolor[HTML]{34FF34}Yes                                      \\ \hline
 GnuPG                   &                                  &                             &                                         &                                                                  \\ \hline
 Keystore explorer       & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes             & \cellcolor[HTML]{34FF34}Yes                                      \\ \hline
+XCA                     & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{FF3A3A}No              & \cellcolor[HTML]{34FF34}Yes                                      \\ \hline
 \end{tabular}
 \end{adjustbox}
 \end{table}
@@ -193,7 +197,7 @@ Possibility of importing (additional?) certificates and keys into storage files 
 
   \subsection{Type}
   OpenSSL uses PKCS12 to store keys and or certificates. Certificates and keys  made in OpenSSL however are being made into PEM or DER encoded file. Said keys/certificates can then be stored inside single .pfx file. 
-  
+  \cellcolor[HTML]{34FF34}Yes             
   \subsection{View and information}
   
 \subsubsection{Viewing stored certificates}
@@ -241,7 +245,7 @@ The ca command is effectively a single user command: no locking is done on the v
 	      -newkey rsa:[length] -keyout privateKey.key \
               -out certificate_name.crt
       \end{verbatim}
-      
+      \cellcolor[HTML]{34FF34}Yes             
       \paragraph{Certificate Signing Request}
       It is possible to generate private key and CSR with
       \begin{verbatim}
@@ -549,8 +553,11 @@ Generation of keys and self-signed certificate is not supported. In older versio
 
   \subsection{Type}
 Keystore Explorer supports both Java Keystore and PKCS\#12 type files, in addition it has a support for alternatives to JKS such as JCEKS, BKS, BKS-V1, UBER.
-
-\includegraphics{../Dependancies/Keystore_Explorer/Type.jpg}
+\begin{figure}[!ht]
+ \caption{Choosing type}
+ \centering
+  \includegraphics[width=0.5\textwidth]{../Dependancies/Keystore_Explorer/Type.jpg}
+\end{figure}
   \subsection{View and information}
 You can view certificates and additional information with Keystore Explorer, view public and private key parts of certificates and other info such as subject alternative names by right clicking a certificate and choosing viable option from View option.
   \subsection{License}
@@ -564,21 +571,38 @@ Keystore Explorer is free to use utility, License is public.
     
       \paragraph{Self-signed certificate}
 It is possible to generate a key pair and self-signed certificate, simply click on icon or double click on blank space, choose algorithm and key length. Then you can choose all the other options such as Basic Constraints and Subject Alternative Name.
+\begin{figure}[!ht]
+ \caption{Generating keys}
+ \centering
+  \includegraphics[width=0.5\textwidth]{../Dependancies/Keystore_Explorer/genKeys.jpg}
+\end{figure}
 
-\includegraphics{../Dependancies/Keystore_Explorer/genKeys.jpg}
-\includegraphics{../Dependancies/Keystore_Explorer/genCert.jpg}
+\begin{figure}[!ht]
+ \caption{Generating certificate}
+ \centering
+  \includegraphics[width=0.5\textwidth]{../Dependancies/Keystore_Explorer/genCert.jpg}
+\end{figure}
+
 You can also set up default pre-fill of Common Name, Organisational Unit, Organisation etc.
 
       \paragraph{Certificate Signing Request}
 It is possible to make Certificate Signing Request in Keystore Explorer. Simply generate key pair certificate and then right click the generated certificate and choose Generate CSR option.
-\includegraphics{../Dependancies/Keystore_Explorer/genCSR.jpg}
+\begin{figure}[!ht]
+ \caption{Generating a CSR}
+ \centering
+  \includegraphics[width=0.5\textwidth]{../Dependancies/Keystore_Explorer/genCSR.jpg}
+\end{figure}
+
       \paragraph{Specify length}
 Length is specified at the moment of key pair generation.
       \paragraph{Specify algorithm}
 Algorithm of keys is specified when generating keys and the certificate hash function is chosen by certificate authority.
     \subsubsection{Basic constraints}
-
-\includegraphics{../Dependancies/Keystore_Explorer/Basic_Constraints.jpg}
+\begin{figure}[!ht]
+ \caption{Basic Constraints}
+ \centering
+  \includegraphics[width=0.5\textwidth]{../Dependancies/Keystore_Explorer/Basic_Constraints.jpg}
+\end{figure}
 
       \paragraph{Specify Type}
 Specifying type is made while generating keys and certificate by changing v3 portion when asked during generation.
@@ -589,7 +613,12 @@ Specifying of max path length is made also by changing v3 part of x509 certifica
     \subsubsection{Certificate Signing Request signing}
 To sign a Certificate Signing Request simply right-click a Certificate Authority certificate and use the sign->CSR option. Then you need to import CA response that was generated in a desired place into a certificate from which the CSR was generated.
 
-\includegraphics{../Dependancies/Keystore_Explorer/CSRsign.jpg}
+\begin{figure}[!ht]
+ \caption{Signing of a CSR}
+ \centering
+  \includegraphics[width=0.5\textwidth]{../Dependancies/Keystore_Explorer/CSRsign.jpg}
+\end{figure}
+
     \subsubsection{Create combination of private key and signed chain}
 To create combination of private key simply generate new key pair certificate, export private key part, import it back and then import to new certificate of private key a trusted chain.
 
@@ -613,6 +642,64 @@ To change a type of file simply right-click on the blank space and choose change
   
   \subsection{Importing certificates and keys into storage files}
 It is possible to import a certificate and/or key by chosing Import option.
+
+
+\chapter{XCA}
+
+\section{General}
+
+  \subsection{Type}
+XCA works with PKCS\#12 type files, but it is neccessary to make theirs database file which stores and to which you can import certificates, certificate signing requests or keys.
+  \subsection{View and information}
+You can view information about keys, certificates and CSRs by double clicking a chosen file.
+  \subsection{License}
+XCA is under BSD License - it is free to use for testing and also commercialy.
+  
+\section{Generation and signing of certificates}
+
+  \subsection{Keys, certificates and basic constraints}
+  
+    \subsubsection{Generate keys}
+    
+      \paragraph{Self-signed certificate}
+You can generate key pair by itself and then use it for generation of certificate. If you do not generate key in advance there is option to generate new key whilst generating a certificate. To generate a certificate click on Certificates tab and press New Certificate. There are many options for generating a self-signed certificate, under Source tab you choose a signing algorithm (\verb+MD5|SHA1|SHA224|SHA256|SHA384|SHA512|RIPEMD160+). Under Subject tab, you shoose Common Name, Organisation, etc. fields of certificate and also choose private key. If you didn't generate key in advance then you can generate a new private key (\verb+RSA|DSA|EC+). For certificate to be accepted by all operating systems you need to choose \verb+Digital Signature & Key Agreement & Certificate Sign+ under Key usage tab.
+%WILL ADD SCREENSHOTS LATER
+      \paragraph{Certificate Signing Request}
+Certificate Signing Request is generated simmilarly as a certificate itself, only difference is that you go under Certificate signing request tab and press New Request.
+      \paragraph{Specify length}
+Length of keys is specified during generation of keys.
+      \paragraph{Specify algorithm}
+Algorithm used for key generation is specified during generation of keys (\verb+RSA|DSA|EC+).
+    \subsubsection{Basic constraints}
+    
+      \paragraph{Specify Type}
+Type of a certificate is chosen under Extensions tab.
+      \paragraph{Specify path length}
+Path Length is also specified under Extensions tab.
+  \subsection{Specifications}
+  
+    \subsubsection{Certificate Signing Request signing}
+    
+    \subsubsection{Create combination of private key and signed chain}
+    
+    \subsubsection{Specify certificate validity}
+Time period during which is a certificate valid is defined under Extensions tab.
+    \subsubsection{Setting Subject Alternative Name for end certificates}
+Subject Alternative Names are specified in appropriate section under a Extensions tab.
+    \subsubsection{Support for Cryptographic Service Provider}
+    
+\section{Conversions}
+
+  \subsection{Exporting}
+  
+    \subsubsection{Certificate or certificate chain from a file}
+    
+    \subsubsection{Private key only}
+    
+  \subsection{Direct conversion between Java Keystore and PKCS\#12 file}
+  
+  \subsection{Importing certificates and keys into storage files}
+  
 
 %TEMPLATE FOR ALL OTHER TOOLS
 \chapter{Tool Page Template}
