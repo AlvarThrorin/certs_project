@@ -679,27 +679,27 @@ Path Length is also specified under Extensions tab.
   \subsection{Specifications}
   
     \subsubsection{Certificate Signing Request signing}
-    
+To sign CSR you must have a CA certificate already in XCA's database. If a CA is availiable then you can sign CSR by using New Certificate option under Certificates tab or right click on CSR under Certificate signing requests tab and choose Sign option. Both options are equivalent.    
     \subsubsection{Create combination of private key and signed chain}
-    
+If the private key is provided PEM encoded it can be imported to XCA's database. If not you need to generate new key pair, then use export option to export private part of a key, delete key pair from database and then import private key. to create a combination, simply generate new certificate while using said private key.
     \subsubsection{Specify certificate validity}
 Time period during which is a certificate valid is defined under Extensions tab.
     \subsubsection{Setting Subject Alternative Name for end certificates}
 Subject Alternative Names are specified in appropriate section under a Extensions tab.
     \subsubsection{Support for Cryptographic Service Provider}
-    
+As far as i know there is no support for CSP.
 \section{Conversions}
 
   \subsection{Exporting}
   
     \subsubsection{Certificate or certificate chain from a file}
-    
+Possible by using export option, choosing in which format you want to export it.
     \subsubsection{Private key only}
-    
+Exporting of private key only directly is not availiable.
   \subsection{Direct conversion between Java Keystore and PKCS\#12 file}
-  
+Conversion between PKCS\#12 and JKS is not possible.
   \subsection{Importing certificates and keys into storage files}
-  
+
 
 %TEMPLATE FOR ALL OTHER TOOLS
 \chapter{Tool Page Template}
