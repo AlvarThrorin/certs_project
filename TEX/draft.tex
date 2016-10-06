@@ -44,6 +44,7 @@ Keytool                 & JKS    & \cellcolor[HTML]{34FF34}{\color[HTML]{000000}
 GnuPG                   &        &                                                    &         &                                    \\ \hline
 Keystore Explorer       & Both   & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{FFC702}Win | OS X \\ \hline
 XCA                     & PKCS12 & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{34FF34}Both       \\ \hline
+GnuTLS                  & PKCS12 & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{FFC702}LINUX       \\ \hline
 \end{tabular}
 \end{adjustbox}
 \end{table}
@@ -662,20 +663,52 @@ XCA is under BSD License - it is free to use for testing and also commercialy.
     \subsubsection{Generate keys}
     
       \paragraph{Self-signed certificate}
-You can generate key pair by itself and then use it for generation of certificate. If you do not generate key in advance there is option to generate new key whilst generating a certificate. To generate a certificate click on Certificates tab and press New Certificate. There are many options for generating a self-signed certificate, under Source tab you choose a signing algorithm (\verb+MD5|SHA1|SHA224|SHA256|SHA384|SHA512|RIPEMD160+). Under Subject tab, you shoose Common Name, Organisation, etc. fields of certificate and also choose private key. If you didn't generate key in advance then you can generate a new private key (\verb+RSA|DSA|EC+). For certificate to be accepted by all operating systems you need to choose \verb+Digital Signature & Key Agreement & Certificate Sign+ under Key usage tab.
-%WILL ADD SCREENSHOTS LATER
+You can generate key pair by itself and then use it for generation of certificate. If you do not generate key in advance there is option to generate new key whilst generating a certificate. To generate a certificate click on Certificates tab and press New Certificate. There are many options for generating a self-signed certificate, under Source tab you choose a signing algorithm (\verb+MD5|SHA1|SHA224|SHA256|SHA384|SHA512|RIPEMD160+). What must be changed is default hash function because it is set to SHA-1 which is no longer considered safe. Under Subject tab, you shoose Common Name, Organisation, etc. fields of certificate and also choose private key. If you didn't generate key in advance then you can generate a new private key (\verb+RSA|DSA|EC+). For certificate to be accepted by all operating systems you need to choose \verb+Digital Signature & Key Agreement & Certificate Sign+ under Key usage tab.
+\begin{figure}[!ht]
+ \caption{Generation of key for new cert}
+ \centering
+  \includegraphics[width=0.5\textwidth]{../Dependancies/XCA/genKey.jpg}
+\end{figure}
+
+\begin{figure}[!ht]
+ \caption{Specify use}
+ \centering
+  \includegraphics[width=0.5\textwidth]{../Dependancies/XCA/genKey_specif.jpg}
+\end{figure}
+
+
       \paragraph{Certificate Signing Request}
 Certificate Signing Request is generated simmilarly as a certificate itself, only difference is that you go under Certificate signing request tab and press New Request.
+\begin{figure}[!ht]
+ \caption{Generation of CSR}
+ \centering
+  \includegraphics[width=0.5\textwidth]{../Dependancies/XCA/newCSR.jpg}
+\end{figure}
+
       \paragraph{Specify length}
 Length of keys is specified during generation of keys.
       \paragraph{Specify algorithm}
 Algorithm used for key generation is specified during generation of keys (\verb+RSA|DSA|EC+).
+\begin{figure}[!ht]
+ \caption{Specifying of length and algorithm used}
+ \centering
+  \includegraphics[width=0.5\textwidth]{../Dependancies/XCA/genKeylength.jpg}
+\end{figure}
+
+
     \subsubsection{Basic constraints}
     
       \paragraph{Specify Type}
 Type of a certificate is chosen under Extensions tab.
       \paragraph{Specify path length}
 Path Length is also specified under Extensions tab.
+
+\begin{figure}[!ht]
+ \caption{Basic constraints, validity and SAN}
+ \centering
+  \includegraphics[width=0.5\textwidth]{../Dependancies/XCA/BC_ext.png}
+\end{figure}
+
   \subsection{Specifications}
   
     \subsubsection{Certificate Signing Request signing}
@@ -699,6 +732,63 @@ Exporting of private key only directly is not availiable.
   \subsection{Direct conversion between Java Keystore and PKCS\#12 file}
 Conversion between PKCS\#12 and JKS is not possible.
   \subsection{Importing certificates and keys into storage files}
+Certificates and keys can be Exported and imported to/from PKCS or PEM type files.
+
+\chapter{GnuTLS}
+
+\section{General}
+
+  \subsection{Type}
+GnuTLS works with PKCS\#12 PEM encoded files
+  \subsection{View and information}
+To view information about certificate use \verb+certtool --certificate-info --infile [file.pem]+ option.
+  \subsection{License}
+GnuTLS is under Gnu Public License \- free to use commercialy.
+  
+\section{Generation and signing of certificates}
+
+  \subsection{Keys, certificates and basic constraints}
+  
+    \subsubsection{Generate keys}
+    
+      \paragraph{Self-signed certificate}
+
+      \paragraph{Certificate Signing Request}
+      
+      \paragraph{Specify length}
+      
+      \paragraph{Specify algorithm}
+      
+    \subsubsection{Basic constraints}
+    
+      \paragraph{Specify Type}
+      
+      \paragraph{Specify path length}
+      
+  \subsection{Specifications}
+  
+    \subsubsection{Certificate Signing Request signing}
+    
+    \subsubsection{Create combination of private key and signed chain}
+    
+    \subsubsection{Specify certificate validity}
+    
+    \subsubsection{Setting Subject Alternative Name for end certificates}
+    
+    \subsubsection{Support for Cryptographic Service Provider}
+    
+\section{Conversions}
+
+  \subsection{Exporting}
+  
+    \subsubsection{Certificate or certificate chain from a file}
+    
+    \subsubsection{Private key only}
+    
+  \subsection{Direct conversion between Java Keystore and PKCS\#12 file}
+  
+  \subsection{Importing certificates and keys into storage files}
+  
 
 
 %TEMPLATE FOR ALL OTHER TOOLS
