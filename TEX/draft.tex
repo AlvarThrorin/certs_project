@@ -731,7 +731,7 @@ As far as i know there is no support for CSP.
     \subsubsection{Certificate or certificate chain from a file}
 Possible by using export option, choosing in which format you want to export it.
     \subsubsection{Private key only}
-Exporting of private key only directly is not availiable.
+Exporting of private key only directly is availiable.
   \subsection{Direct conversion between Java Keystore and PKCS\#12 file}
 Conversion between PKCS\#12 and JKS is not possible.
   \subsection{Importing certificates and keys into storage files}
@@ -1098,7 +1098,10 @@ high   = 256 bit
 ultra  = 512 bit
 \end{verbatim}
 
-to define a hash algorithm use \verb+--hash=[SHA1|RMD160|SHA256|SHA384|SHA512+ option while generating a certificate.
+Also, to choose exact bit length you can use \verb+--bits=<length>+ option - tested on \verb+--rsa --bits=32768+ option which generated 32kbit RSA key.
+
+To define a hash algorithm use \verb+--hash=[SHA1|RMD160|SHA256|SHA384|SHA512+ option while generating a certificate.
+
       \paragraph{Specify algorithm}
 Algorithm for key generation is specified in \verb+--[rsa|dsa|ecc]+ option where rsa = RSA, dsa = DSA, ecc = ECDSA.
     
