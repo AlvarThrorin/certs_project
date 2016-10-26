@@ -44,7 +44,8 @@ Keytool                 & JKS    & \cellcolor[HTML]{34FF34}{\color[HTML]{000000}
 GnuPG                   &        &                                                    &         &                                    \\ \hline
 Keystore Explorer       & Both   & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{FFC702}Win | OS X \\ \hline
 XCA                     & PKCS12 & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{34FF34}Both       \\ \hline
-GnuTLS                  & PKCS12 & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{FFC702}LINUX       \\ \hline
+GnuTLS                  & PKCS12 & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{FFC702}LINUX      \\ \hline
+Makecert                & PKCS12 & \cellcolor[HTML]{FE0000}No			      & Public  & \cellcolor[HTML]{FFC702}Windows    \\ \hline
 \end{tabular}
 \end{adjustbox}
 \end{table}
@@ -82,6 +83,7 @@ GnuPG                  &                                                        
 Keystore explorer      & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
 XCA                    & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
 GnuTLS                 & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
+Makecert               & \cellcolor[HTML]{34FF34}Yes					      & \cellcolor[HTML]{FE0000}No  & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{FFFFFF}    & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
 \end{tabular}
 \end{adjustbox}
 \end{table}
@@ -129,6 +131,7 @@ GnuPG                  &                               &                        
 Keystore explorer      & \cellcolor[HTML]{34FF34}Yes   & \cellcolor[HTML]{34FF34}Yes              & \cellcolor[HTML]{34FF34}Yes                    & \cellcolor[HTML]{34FF34}Yes                & \cellcolor[HTML]{FE0000}No                                                  \\ \hline
 XCA                    & \cellcolor[HTML]{34FF34}Yes   & \cellcolor[HTML]{34FF34}Yes              & \cellcolor[HTML]{34FF34}Yes                    & \cellcolor[HTML]{34FF34}Yes                & ???                                                                         \\ \hline
 GnuTLS                 & \cellcolor[HTML]{34FF34}Yes   & ???	                                  & \cellcolor[HTML]{34FF34}Yes                    & \cellcolor[HTML]{34FF34}Yes                & \cellcolor[HTML]{FE0000}No                                                  \\ \hline
+Makecert	       & \cellcolor[HTML]{FE0000}No    &   \cellcolor[HTML]{FE0000}No	 	  & \cellcolor[HTML]{34FF34}Yes			   & \cellcolor[HTML]{FE0000}No			& \cellcolor[HTML]{34FF34}Yes						      \\ \hline
 \end{tabular}
 \end{adjustbox}
 \end{table}
@@ -169,6 +172,7 @@ GnuPG                   &                                  &                    
 Keystore explorer       & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes             & \cellcolor[HTML]{34FF34}Yes                                      \\ \hline
 XCA                     & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{FF3A3A}No              & \cellcolor[HTML]{34FF34}Yes                                      \\ \hline
 GnuTLS                  & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HTML]{FF3A3A}No  & \cellcolor[HTML]{FF3A3A}No              & \cellcolor[HTML]{34FF34}Yes                                      \\ \hline
+Makecert		& \cellcolor[HTML]{FE0000}No	   & \cellcolor[HTML]{FE0000}No  & \cellcolor[HTML]{FE0000}No		   & \cellcolor[HTML]{34FF34}Yes				      \\ \hline
 \end{tabular}
 \end{adjustbox}
 \end{table}
@@ -1152,6 +1156,88 @@ It is not possible to export private key only, however for proper use of GnuTLS 
 Not possible.
   \subsection{Importing certificates and keys into storage files}
 Possible. - need to run up some facts.  
+
+
+
+\chapter{Makecert}
+
+\section{General}
+
+  \subsection{Type}
+Makecert can work with PKCS\#12 type files, however  default output is in \verb+.cer+ for certificate and \verb+.pvk+ for private key. To tie together key and certificate you need to combine them into PKCS\#12 type file with \verb+pvk2pfx+ tool (which is also part of Windows SDK). In addition to use the tool you need to start a Developer Command Prompt for Visual Studio (on Windows 10). 
+\\ 
+In addition to that makecert is deprecated itself as cited on MSDN MakeCert site.
+  \subsection{View and information}
+Makecert does not allow user to view created certificates or any information about them whatsoever.
+  \subsection{License}
+It is free to use, falls under the Windows SDK.
+  
+\section{Generation and signing of certificates}
+
+  \subsection{Keys, certificates and basic constraints}
+  
+    \subsubsection{Generate keys}
+
+      \paragraph{Self-signed certificate}
+Generating key and self-signed certificate that can be used as CA is not straightforward with Makecert.
+\begin{verbatim}
+makecert -n "CN=Common Name, OU=Organization Unit, O=..." -cy [authority|end] \
+	 -a [sha256|sha384|sha512] -sv <key_file_name>.pvk -r \
+	 -len <int key_length> <cert_name>.cer
+\end{verbatim}
+
+Where -n sets credentials, -cy defines certificate type, -a chooses signature algorithm, -sv chooses name for file where the private key is stored, -r to create a self-signed certificate, -len for key length and without option choose the filename.
+
+After entering this command you will be prompted to enter private key file password.
+
+After creating certificate and private key file successfully to use self-signed certificate as a CA you need to join certificate file and private key into PKCS\#12 type file. This is made by using a pvk2pfx tool already implemented in Windows SDK.
+\begin{verbatim}
+pvk2pfx -spc <cert_file> -pvk <key_file>.pvk -pfx <pfx_file_name>.pfx \
+        [-pi <key_password> -po <pfx_password]
+\end{verbatim}
+
+-pi option is used if there is a password on key file, -po is desired pfx file password. If no password for pfx is given makecert defaults it to key file password.
+
+
+      \paragraph{Certificate Signing Request}
+It is not possible to create a CSR using Makecert.
+      \paragraph{Specify length}
+Length is specified by \verb+-len <int key_length>+ option.
+      \paragraph{Specify algorithm}
+To specify hash algorithm use \verb+-a [sha256|sha384|sha512]+ option. Supported are also SHA1 and MD5 but those are considered unsafe.
+
+To specify key algorithm you must change CSP.
+    \subsubsection{Basic constraints}
+    
+      \paragraph{Specify Type}
+It is possible with \verb+-cy [authority|end]+ option.
+      \paragraph{Specify path length}
+Path length is specified by \verb+-h <int length>+ option while creating a certificate.
+  \subsection{Specifications}
+  
+    \subsubsection{Certificate Signing Request signing}
+Not possible.
+    \subsubsection{Create combination of private key and signed chain}
+Not possible.
+    \subsubsection{Specify certificate validity}
+Defaults from date of creation until 2039, to change use \verb+-b <mm/dd/yyyy -> from> -e <mm/dd/yyyy -> until>+ option.
+Alternatively you can use \verb+-m <int months>+ option where you choose for how many months the certificate will be valid.
+    \subsubsection{Setting Subject Alternative Name for end certificates}
+Not possible.
+    \subsubsection{Support for Cryptographic Service Provider}
+There is support for CSP in makecert by using \verb+-sp <provider_name> -sy <provider_type>+ defines the CryptoAPI provider for subject.
+\section{Conversions}
+
+  \subsection{Exporting}
+  
+    \subsubsection{Certificate or certificate chain from a file}
+Not possible.
+    \subsubsection{Private key only}
+Private key is stored and generated while generating a certificate but the type .pvk is uncommon.
+  \subsection{Direct conversion between Java Keystore and PKCS\#12 file}
+Not possible.
+  \subsection{Importing certificates and keys into storage files}
+For importing of keys and certificates into PKCS\#12 file, use pvk2pfx as in generating self-signed part. There is just option to add 1 certificate and 1 private key into a file.
 
 %TEMPLATE FOR ALL OTHER TOOLS
 \chapter{Tool Page Template}
