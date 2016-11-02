@@ -6,6 +6,16 @@
 \usepackage{adjustbox,lipsum}
 \usepackage{csquotes}
 \usepackage{graphicx}
+\usepackage[linktoc=all]{hyperref}
+
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
 \newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\} %used for better formating of some text
 
 \setlength{\oddsidemargin}{0cm}
@@ -14,7 +24,7 @@
 
 \title{Report on Certificate Tools}
 \author{Oliver Bodnár}
-\date{August 2016}
+\date{November 2016}
 
 \begin{document}
 
@@ -166,12 +176,12 @@ whether the use, choosing and changing of Cryptographic Service Provider is supp
                         & \multicolumn{4}{c|}{Conversions}                                                                                                                                            \\ \cline{2-5} 
                         & \multicolumn{2}{c|}{Exporting}                                 &                                         &                                                                  \\ \cline{2-3}
 \multirow{-3}{*}{Tools} & Certificate/chain only from file & Private key only            & \multirow{-2}{*}{Direct JKS and PKCS12} & \multirow{-2}{*}{Import certificate and private key into a file} \\ \hline
-OpenSSL                 & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{FF3A3A}No              & \cellcolor[HTML]{34FF34}Yes                                      \\ \hline
+OpenSSL                 & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{FE0000}No              & \cellcolor[HTML]{34FF34}Yes                                      \\ \hline
 Keygen                  & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HTML]{FE0000}No  & \cellcolor[HTML]{34FF34}Yes             & \cellcolor[HTML]{34FF34}Yes                                      \\ \hline
 GnuPG                   &                                  &                             &                                         &                                                                  \\ \hline
 Keystore explorer       & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes             & \cellcolor[HTML]{34FF34}Yes                                      \\ \hline
-XCA                     & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{FF3A3A}No              & \cellcolor[HTML]{34FF34}Yes                                      \\ \hline
-GnuTLS                  & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HTML]{FF3A3A}No  & \cellcolor[HTML]{FF3A3A}No              & \cellcolor[HTML]{34FF34}Yes                                      \\ \hline
+XCA                     & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{FE0000}No              & \cellcolor[HTML]{34FF34}Yes                                      \\ \hline
+GnuTLS                  & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HTML]{FE0000}No  & \cellcolor[HTML]{FE0000}No              & \cellcolor[HTML]{34FF34}Yes                                      \\ \hline
 Makecert		& \cellcolor[HTML]{FE0000}No	   & \cellcolor[HTML]{FE0000}No  & \cellcolor[HTML]{FE0000}No		   & \cellcolor[HTML]{34FF34}Yes				      \\ \hline
 \end{tabular}
 \end{adjustbox}
