@@ -46,15 +46,15 @@
 \begin{adjustbox}{max width=\textwidth}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-                        & \multicolumn{4}{c|}{General}                                                                               \\ \cline{2-5} 
-\multirow{-2}{*}{Tools} & Type   & View + info                                        & License & Operating System                   \\ \hline
-OpenSSL                 & PKCS12 & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{34FF34}Both       \\ \hline
-Keytool                 & JKS    & \cellcolor[HTML]{34FF34}{\color[HTML]{000000} Yes} & Public  & \cellcolor[HTML]{34FF34}Both       \\ \hline
-GnuPG                   &        &                                                    &         &                                    \\ \hline
-Keystore Explorer       & Both   & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{FFC702}Win &\vert& OS X \\ \hline
-XCA                     & PKCS12 & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{34FF34}Both       \\ \hline
-GnuTLS                  & PKCS12 & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{FFC702}LINUX      \\ \hline
-Makecert                & PKCS12 & \cellcolor[HTML]{FE0000}No			      & Public  & \cellcolor[HTML]{FFC702}Windows    \\ \hline
+                        & \multicolumn{4}{c|}{General}                                                                                 \\ \cline{2-5} 
+\multirow{-2}{*}{Tools} & Type   & View + info                                        & License & Operating System                     \\ \hline
+OpenSSL                 & PKCS12 & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{34FF34}Both         \\ \hline
+Keytool                 & JKS    & \cellcolor[HTML]{34FF34}{\color[HTML]{000000} Yes} & Public  & \cellcolor[HTML]{34FF34}Both         \\ \hline
+GnuPG                   &        &                                                    &         &                                      \\ \hline
+Keystore Explorer       & Both   & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{FFC702}Win \vert OSX\\ \hline
+XCA                     & PKCS12 & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{34FF34}Both         \\ \hline
+GnuTLS                  & PKCS12 & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{FFC702}LINUX        \\ \hline
+Makecert                & PKCS12 & \cellcolor[HTML]{FE0000}No			      & Public  & \cellcolor[HTML]{FFC702}Windows      \\ \hline
 \end{tabular}
 \end{adjustbox}
 \end{table}
@@ -92,7 +92,7 @@ GnuPG                  &                                                        
 Keystore explorer      & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
 XCA                    & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
 GnuTLS                 & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
-Makecert               & \cellcolor[HTML]{34FF34}Yes					      & \cellcolor[HTML]{FE0000}No  & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{FFFFFF}    & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
+Makecert               & \cellcolor[HTML]{34FF34}Yes					      & \cellcolor[HTML]{FE0000}No  & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{FFC702}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
 \end{tabular}
 \end{adjustbox}
 \end{table}
@@ -101,25 +101,25 @@ Makecert               & \cellcolor[HTML]{34FF34}Yes					      & \cellcolor[HTML
 \subsubsection{Generate keys}
 
 \paragraph{Self-signed certificate}
-possibility of using 1 command to generate key pair and self-signed certificate
+Possibility of generating key pair and self-signed certificate
 
 \paragraph{Certificate Signing Request}
-possibility of using a command to generate key pair and certificate signing request to certificate authority.
+Possibility of using a command to generate key pair and certificate signing request to certificate authority.
 
 \paragraph{Specify length}
-possibility to specify the length of output key
+Possibility to specify the length of output key
 
 \paragraph{Specify algorithm}
-possibility to choose between different types of algorithms for key generation
+Possibility to choose between different types of algorithms for key generation
 
 
 \subsubsection{Basic Constraints}
 
 \paragraph{Specify Type}
-specify if generated certificate will belong to certificate authority or whether it will be end certificate
+Specify if generated certificate will belong to certificate authority or whether it will be end certificate
 
-\paragraph{Specify path length}
-specify the maximum length of certificate authority chain
+\paragraph{Specify Path Length}
+Specify the maximum length of certificate authority chain
 
 
 \subsection{Specifications}
@@ -138,8 +138,8 @@ OpenSSL                & \cellcolor[HTML]{34FF34}Yes   & \cellcolor[HTML]{34FF34
 Keytool                & \cellcolor[HTML]{34FF34}Yes   & \cellcolor[HTML]{34FF34}Yes              & \cellcolor[HTML]{34FF34}Yes                    & \cellcolor[HTML]{34FF34}Yes                & \cellcolor[HTML]{34FF34}Yes                                                 \\ \hline
 GnuPG                  &                               &                                          &                                                &                                            &                                                                             \\ \hline
 Keystore explorer      & \cellcolor[HTML]{34FF34}Yes   & \cellcolor[HTML]{34FF34}Yes              & \cellcolor[HTML]{34FF34}Yes                    & \cellcolor[HTML]{34FF34}Yes                & \cellcolor[HTML]{FE0000}No                                                  \\ \hline
-XCA                    & \cellcolor[HTML]{34FF34}Yes   & \cellcolor[HTML]{34FF34}Yes              & \cellcolor[HTML]{34FF34}Yes                    & \cellcolor[HTML]{34FF34}Yes                & ???                                                                         \\ \hline
-GnuTLS                 & \cellcolor[HTML]{34FF34}Yes   & ???	                                  & \cellcolor[HTML]{34FF34}Yes                    & \cellcolor[HTML]{34FF34}Yes                & \cellcolor[HTML]{FE0000}No                                                  \\ \hline
+XCA                    & \cellcolor[HTML]{34FF34}Yes   & \cellcolor[HTML]{34FF34}Yes              & \cellcolor[HTML]{34FF34}Yes                    & \cellcolor[HTML]{34FF34}Yes                & \cellcolor[HTML]{FE0000}No                                                  \\ \hline
+GnuTLS                 & \cellcolor[HTML]{34FF34}Yes   & \cellcolor[HTML]{FE0000}No               & \cellcolor[HTML]{34FF34}Yes                    & \cellcolor[HTML]{34FF34}Yes                & \cellcolor[HTML]{FE0000}No                                                  \\ \hline
 Makecert	       & \cellcolor[HTML]{FE0000}No    &   \cellcolor[HTML]{FE0000}No	 	  & \cellcolor[HTML]{34FF34}Yes			   & \cellcolor[HTML]{FE0000}No			& \cellcolor[HTML]{34FF34}Yes						      \\ \hline
 \end{tabular}
 \end{adjustbox}
@@ -263,6 +263,8 @@ The ca command is effectively a single user command: no locking is done on the v
               -out certificate_name.crt
       \end{verbatim}
 
+However for any other type of Key generating algorithm, it is better to create key separately. There are options to create a key in onecommand, but they are quirky.
+
       \paragraph{Certificate Signing Request}
       It is possible to generate private key and CSR with
       \begin{verbatim}
@@ -296,7 +298,7 @@ Specifying of path length is made by setting a \verb+<maxCheinLengthInteger>+ to
   \subsection{Specifications}
   
     \subsubsection{Certificate Signing Request signing}
-   SR signing can be done by CA created in openSSL by command
+CSR signing can be done by CA created in openSSL by command
 \begin{verbatim}
 openssl ca -config ca/openssl.cnf \
         -extensions server_cert -days <validity_time>  \
@@ -369,7 +371,8 @@ To import certificate and private key into a single PKCS\#12 type file use:
          -certfile CACert.crt
 \end{verbatim}
 
-\section{Notes}
+
+
 
 \chapter{Keytool}
 
@@ -402,9 +405,11 @@ Keytool is free to use in production code and is licensed under Apache Licence V
 To generate new key pair and self-signed certificate use:
 \begin{verbatim}
 keytool -genkey -keyalg [RSA|DSA] -alias [alisaname] \
-        -keystore [keystore_file] -storepass [password] \
-        -validity [time] -keysize [length]
+        -keystore [keystore_file.jks] -storepass [password] \
+        -validity [days] -keysize [length]
 \end{verbatim}
+
+It should be noted that afterwards, when user is prompted to input First and Last name it is equal to Common Name parameter.
 
 Keytool natively supports only DSA of length in between 512 and 1024, and is considered to be dangerous to use. RSA with key length of at least 2048 is preffered.
 
@@ -422,10 +427,12 @@ keytool -certreq -keyalg [keyalg_from_genkey] -alias [alias_from_genkey] \
 Where you need to set -keyalg -alias and -keystore as chosen when generating key pair earlier.
 
       \paragraph{Specify length}
-Length is specified when generating keys, RSA support for up to 4096, DSA support from 512 up to 1024.
+Length is specified when generating keys, RSA support for up to 4096, DSA support from 512 up to 1024 as stated in manual, but i managed to create key lengths of bigger value whilst generating.
 
       \paragraph{Specify algorithm}
 Algorithm is specified while generating key pair, currently support for DSA, RSA. EC is needed to be implemented.      
+
+To choose signing algorithm use \verb+-sigalg+ option which can have values of \verb+[SHA1|MD5|SHA256|SHA512]with[RSA|DSA]+. This changes with change of Cryptographic service provider.
     \subsubsection{Basic constraints}
     
       \paragraph{Specify Type}
@@ -478,7 +485,7 @@ Exported certificate will be DER encoded.
 Exporting of certificate chain from a Java KeyStore is not availiable using keytool.
 
     \subsubsection{Private key only}
-Exporting of private key only is not availiable in keytool.
+Exporting of private key only is not availiable directly in keytool. It is possible by changing keystore type to PKCS\#12 and then using other tool such as OpenSSL.
 
   \subsection{Direct conversion between Java Keystore and PKCS\#12 file}
 Conversion between Java KeyStore and PKCS\#12 file is availiable. To convert Java KeyStore file to PKCS\#12 use:
@@ -508,7 +515,7 @@ keytool -import -alias [certificate_chosen_alias] \
 
 Importing of keys alone is not supported, you need to fold them into a Java KeyStore or PKCS\#12 file first.
 
-\section{Notes}
+
 
 \chapter{GnuPG}
 
@@ -528,9 +535,9 @@ GnuPG is free to use both for testing and in production code.
     \subsubsection{Generate keys}
     
       \paragraph{Self-signed certificate}
-Generation of keys and self-signed certificate is not supported. In older versions it was possigle with \verb+gpgm+
+      
       \paragraph{Certificate Signing Request}
-Possible, but private key is not a part of output CSR.      
+Possible, but private key is not a part of output CSR.     
       \paragraph{Specify length}
       
       \paragraph{Specify algorithm}
@@ -647,8 +654,6 @@ To create combination of private key simply generate new key pair certificate, e
 Desired duration of certificate validity is asked during generation, but given whilst signing a Certificate Signing Request by Certificate Authority
     \subsubsection{Setting Subject Alternative Name for end certificates}
 Setting of Subject Alternative Name for certificate is made during generation of certificate, under the add extentions option under the Subject Alternative Name part. Keystore Explorer allows to add both DNS and IP formats of SAN.
-    \subsubsection{Support for Cryptographic Service Provider}
-As Far as i know there is not support for using CSP.
 \section{Conversions}
 
   \subsection{Exporting}
@@ -739,18 +744,17 @@ If the private key is provided PEM encoded it can be imported to XCA's database.
 Time period during which is a certificate valid is defined under Extensions tab.
     \subsubsection{Setting Subject Alternative Name for end certificates}
 Subject Alternative Names are specified in appropriate section under a Extensions tab.
-    \subsubsection{Support for Cryptographic Service Provider}
-As far as i know there is no support for CSP.
+
 \section{Conversions}
 
   \subsection{Exporting}
   
     \subsubsection{Certificate or certificate chain from a file}
 Possible by using export option, choosing in which format you want to export it.
+
     \subsubsection{Private key only}
 Exporting of private key only directly is availiable.
-  \subsection{Direct conversion between Java Keystore and PKCS\#12 file}
-Conversion between PKCS\#12 and JKS is not possible.
+
   \subsection{Importing certificates and keys into storage files}
 Certificates and keys can be Exported and imported to/from PKCS or PEM type files.
 
@@ -870,7 +874,7 @@ ultra  = 512 bit
 
 Also, to choose exact bit length you can use \verb+--bits=<length>+ option - tested on \verb+--rsa --bits=32768+ option which generated 32kbit RSA key.
 
-To define a hash algorithm use \verb+--hash=[SHA1|RMD160|SHA256|SHA384|SHA512+ option while generating a certificate.
+To define a hash algorithm use \verb+--hash=[SHA1|RMD160|SHA256|SHA384|SHA512]+ option while generating a certificate.
 
       \paragraph{Specify algorithm}
 Algorithm for key generation is specified in \verb+--[rsa|dsa|ecc]+ option where rsa = RSA, dsa = DSA, ecc = ECDSA.
@@ -908,8 +912,6 @@ ip_address = "0.0.0.2"
    ...
 \end{verbatim}    
 
-    \subsubsection{Support for Cryptographic Service Provider}
-GnuTLS does not have support for CSP.
 \section{Conversions}
 
   \subsection{Exporting}
@@ -933,8 +935,6 @@ Possible. - need to run up some facts.
 Makecert can work with PKCS\#12 type files, however  default output is in \verb+.cer+ for certificate and \verb+.pvk+ for private key. To tie together key and certificate you need to combine them into PKCS\#12 type file with \verb+pvk2pfx+ tool (which is also part of Windows SDK). In addition to use the tool you need to start a Developer Command Prompt for Visual Studio (on Windows 10). 
 \\ 
 In addition to that makecert is deprecated itself as cited on MSDN MakeCert site.
-  \subsection{View and information}
-Makecert does not allow user to view created certificates or any information about them whatsoever.
   \subsection{License}
 It is free to use, falls under the Windows SDK.
   
@@ -965,8 +965,6 @@ pvk2pfx -spc <cert_file> -pvk <key_file>.pvk -pfx <pfx_file_name>.pfx \
 -pi option is used if there is a password on key file, -po is desired pfx file password. If no password for pfx is given makecert defaults it to key file password.
 
 
-      \paragraph{Certificate Signing Request}
-It is not possible to create a CSR using Makecert.
       \paragraph{Specify length}
 Length is specified by \verb+-len <int key_length>+ option.
       \paragraph{Specify algorithm}
@@ -981,27 +979,17 @@ It is possible with \verb+-cy [authority|end]+ option.
 Path length is specified by \verb+-h <int length>+ option while creating a certificate.
   \subsection{Specifications}
   
-    \subsubsection{Certificate Signing Request signing}
-Not possible.
-    \subsubsection{Create combination of private key and signed chain}
-Not possible.
     \subsubsection{Specify certificate validity}
 Defaults from date of creation until 2039, to change use \verb+-b <mm/dd/yyyy -> from> -e <mm/dd/yyyy -> until>+ option.
 Alternatively you can use \verb+-m <int months>+ option where you choose for how many months the certificate will be valid.
-    \subsubsection{Setting Subject Alternative Name for end certificates}
-Not possible.
     \subsubsection{Support for Cryptographic Service Provider}
 There is support for CSP in makecert by using \verb+-sp <provider_name> -sy <provider_type>+ defines the CryptoAPI provider for subject.
 \section{Conversions}
 
   \subsection{Exporting}
   
-    \subsubsection{Certificate or certificate chain from a file}
-Not possible.
     \subsubsection{Private key only}
 Private key is stored and generated while generating a certificate but the type .pvk is uncommon.
-  \subsection{Direct conversion between Java Keystore and PKCS\#12 file}
-Not possible.
   \subsection{Importing certificates and keys into storage files}
 For importing of keys and certificates into PKCS\#12 file, use pvk2pfx as in generating self-signed part. There is just option to add 1 certificate and 1 private key into a file.
 
@@ -1068,7 +1056,43 @@ For importing of keys and certificates into PKCS\#12 file, use pvk2pfx as in gen
 
 The main thing to understand is, that every tool has had its strong and weak points. Every should be used in complience with required properties of use. That can mean restrictions on used Operating System (e.g. customer has only access to Apple computers with OS X operating system), or for example restrictions how it should be used on Operating System (command line vs GUI programm). In the next part i will try to go over strengths and weaknesses of each tool that I have tested.
 
-Section{}
+\section{OpenSSL}
+It is a great command line tool, can work with PEM, DES and PKCS\#12 files. Strong point is a easy form of creating a self-signed certificate, however using it for CA certificates with ca option is not ideal - it is noted in man pages and also a O'REILLY's OpenSSL book.
+Another strong point is configuration, which can be done in file. I tested it with creation of appropriate directories and configs.
+
+Tested under Fedora 21, OpenSSL version 1.0.1k-fips
+
+\section{Keytool}
+Keytool is the only command line tool using Java Keystore to store keys and certificates, which i consider it main strong point. By default the CSP is \verb+java.security.provider+ which allows RSA and DSA options and SHA-1,MD5,SHA-256 and SHA-512 hash algorithms. This Changes when choosing other Cryptographic Service Provider. Working with it is quite easy and support for exporting as PKCS\#12 is usefull addition.
+
+Tested under Fedora 21 and OpenSUSE 42.1, openjdk version 1.8.0\_65
+
+\section{GnuPG}
+To be added.
+
+\section{Keystore Explorer}
+A great GUI tool for when you need to work with different types of Java Keystore files for example supports Bouncy Castle implementation. Even though CSP support is not implicit, there are different choices already implemented. Those can be viewed under \verb+Help->Security Providers+ tab.
+
+Main downfall is that keys of length greater than 4096 take longer to generate (notably RSA of length 16192, it took almost 2 hours to generate).
+
+Tested under MS Windows 10 version 1607 Build 14393.447, Keystore Explorer version 5.2.1
+
+\section{XCA}
+XCA is a great GUI tool that can work with PEM, DER and PKCS\#12 type of files. Main advantage is simplicity and ammount of options, basic options are readily availiable as a button. There are many exporting options, for example PEM encoded certificate file with PKCS\#8 encrypted key file. Although there is no CSP support, its ease of use makes it a great testing tool.
+
+Tested under Windows 10 version 1607 Build 14393.447 and Fedora 21, XCA version 1.3.2 using OpenSSL version 1.0.2d
+
+\section{GnuTLS}
+Command line tool, availiable only under Linux. Very friendly to use, many different options in configuration file. Great support for different key and hash algorithm types. Supports key lengths of higher values (greater than 4096 RSA for example). Its weaknesses are no support for CSP and availibility only under LINUX Operating Systems.
+
+Tested under Fedora 21, certtool version 3.3.16
+\section{Makecert}
+Command line tool, not to be used in production code since microsoft has deprecated it. Very unfriendly to use and only way to use it is to download a whole Windows SDK and use it with Visual Studio console. Overall it shouldn't be used.
+
+Tested under MS Windows 10 version 14393.447, makecert.exe version 6.3.9600.17298
+\section{New-SelfSignedCertificate}
+TBA - error of access denied, need fix.
+
 
 
 \end{document}
