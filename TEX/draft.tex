@@ -51,11 +51,11 @@ Primary goal of this work is to compare and review some of the basic functionali
 \hline
                               & \multicolumn{5}{c|}{General}                                                                                   \\ \cline{2-6} 
 \multirow{-2}{*}{Tools}       & Type   & View information about certificate                 & License & Operating System                        & Tool Type           \\ \hline
-OpenSSL                       & PKCS12 & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{34FF34}Both            & Command Line        \\ \hline
-Keytool                       & JKS    & \cellcolor[HTML]{34FF34}{\color[HTML]{000000} Yes} & Public  & \cellcolor[HTML]{34FF34}Both            & Command Line        \\ \hline
-GnuPG                         & None   & \cellcolor[HTML]{FE0000}No                         & Public  & \cellcolor[HTML]{34FF34}Both            & Command Line        \\ \hline
+OpenSSL                       & PKCS12 & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{34FF34}All             & Command Line        \\ \hline
+Keytool                       & JKS    & \cellcolor[HTML]{34FF34}{\color[HTML]{000000} Yes} & Public  & \cellcolor[HTML]{34FF34}All             & Command Line        \\ \hline
+GnuPG                         & None   & \cellcolor[HTML]{FE0000}No                         & Public  & \cellcolor[HTML]{34FF34}All             & Command Line        \\ \hline
 Keystore Explorer             & Both   & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{FFC702}Win $\vert$ OSX & Graphical Interface \\ \hline
-XCA                           & PKCS12 & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{34FF34}Both            & Graphical Interface \\ \hline
+XCA                           & PKCS12 & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{34FF34}All             & Graphical Interface \\ \hline
 GnuTLS                        & PKCS12 & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{FFC702}UNIX            & Command Line        \\ \hline
 Makecert                      & PKCS12 & \cellcolor[HTML]{FE0000}No			    & Public  & \cellcolor[HTML]{FFC702}Windows         & Command Line        \\ \hline
 Windows PowerShell PKI Module & PKCS12 & \cellcolor[HTML]{34FF34}Yes			    & Public  & \cellcolor[HTML]{FFC702}Windows         & Command Line        \\ \hline
@@ -65,7 +65,12 @@ Windows PowerShell PKI Module & PKCS12 & \cellcolor[HTML]{34FF34}Yes			    & Pub
 %TABLE END
 
 \subsection{Type}
-This section defines type of storage file in which the certificates or keys are saved. Most common are PKCS\#12 (.pfx and .p12 extentions) and JKS (Java KeyStore). 
+This section defines type of storage file in which the certificates or keys are saved. 
+Options are:
+    \begin{itemize}
+     \item \textit{PKCS\#12} - PKCS\#12 encoded file, usual extensions are \verb+.pfx+ and \verb+.p12+
+     \item \textit{JKS} - Java KeyStore type file, usual extension is \verb+.jks+
+    \end{itemize}
 
 \subsection{View information about certificate}
 This section shows whether it is possible to view information certificates and keys and additional information. 
@@ -73,11 +78,24 @@ This section shows whether it is possible to view information certificates and k
      \item \textit{Yes} - viewing information about certificates and keys is availiable. This includes length, used algorithm, fingerprint.
      \item \textit{No}  - tool does not have an option to view any information about certificates or keys.
     \end{itemize}
+
 \subsection{License}
-Type of license and possibility of using said tool for testing or production code. Public means that license is not requiered for use in production code but does not mean that it should be used as such. Definition if it is advised to use said tool in production code or only in testing enviroment will be talked about in next chapters under each tool.
+Type of license and possibility of using said tool for testing or production code. 
+    \begin{itemize}
+     \item \textit{Public} - No restrictions for usage, can be used commercialy.
+     \item \textit{Testing} - Tool is free to use non-commercialy. For commercial acquisition of paid license is needed.
+     \item \textit{Paid} - Every type of usage is paid for. Restrictive version of product may be available, but to use all the features and be able to use in commercial enviroment paid license is needed.
+    \end{itemize}
+
+Public does not mean that it should be used as such. Definition if it is advised to use said tool in production code or only in testing enviroment will be talked about in next chapters under each tool.
 
 \subsection{Operating Systems}
-In this part the Operating System where the tool is imported is defined. Both means that it is implemented under UNIX like systems and Windows systems. Otherwise the Operating System is defined (Windows $\vert$ UNIX).
+In this part the Operating System under which the tool is implemented is defined. 
+    \begin{itemize}
+     \item \textit{OS X $\vert$ Windows $\vert$ LINUX} - Tool is implemented under any of the mentioned OS, \verb+LINUX+ defines most common distributions of Linux systems \textit{(Debian or RPM based)}.
+     \item \textit{UNIX} - Tool is implemented under UNIX-like systems, which is same as \textit{OS X $\vert$ LINUX} option.
+     \item \textit{All} - Tool is implemented under every aforementioned operating system.
+    \end{itemize}
 
 \subsection{Tool Type}
 This section shows what type of input is used in Tool. 
@@ -115,26 +133,51 @@ Windows PowerShell PKI Module & \cellcolor[HTML]{34FF34}Yes                     
 \subsubsection{Generate keys}
 
 \paragraph{Self-signed certificate}
-The tool is capable of generating private key and corresponding self-signed certificate
+Capability of tool to create a self-signed certificate
+\begin{itemize}
+ \item \textit{Yes} - there is a capability of a tool to create self-signed certificate, not necessarily a single command.
+ \item \textit{No} - under no circumstances is it possible to create self-signed certificate using only tool itself.
+\end{itemize}
 
 \paragraph{Certificate Signing Request}
-Possibility of using a command to generate key pair and certificate signing request to certificate authority.
+Capability of tool to create a Certificate Signing Request.
+\begin{itemize}
+ \item \textit{Yes} - The tool is capable of creating a certificate signing request, but does not necessarily generates or packs private key with it.
+ \item \textit{No} - The tool is not capable of creating any type of certificate signing request.
+\end{itemize}
 
 \paragraph{Specify length}
-Possibility to specify the length of output key
+Capability of tool to specify length of created key.
+\begin{itemize}
+ \item \textit{Yes} - changing key length is possible either in fixed range or by declaring required length \textit{(in bits)}.
+ \item \textit{No} - not possible to change key length by any means.
+\end{itemize}
 
 \paragraph{Specify algorithm}
-Possibility to choose between different types of algorithms for key generation and message digest\textit{(hash)}.
 
+\begin{itemize}
+ \item \textit{Yes} - changing key or at least hash algorithm is possible .
+ \item \textit{No} - not possible to change any algorithm by any means.
+\end{itemize}
 
 \subsubsection{Basic Constraints}
 
 \paragraph{Specify Type}
-Specify if generated certificate will belong to certificate authority or whether it will be end certificate
+
+\begin{itemize}
+ \item \textit{Yes} - Specification if created certificate will be a certificate authority or end certificate is possible.
+ \item \textit{No} - Created certificate is of fixed type, either end certificate or certificate authority.
+\end{itemize}
 
 \paragraph{Specify Path Length}
-Specify the maximum length of certificate authority chain
 
+\begin{itemize}
+ \item \textit{Yes} - Specification of chain length value is available .
+ \item \textit{No} - The chain length has a fixed value.
+\end{itemize}
+
+
+\newpage
 
 \subsection{Specifications}
 
@@ -162,20 +205,40 @@ Windows PowerShell PKI Module & \cellcolor[HTML]{FE0000}No    & \cellcolor[HTML]
 %TABLE END
 
 \paragraph{Certificate Signing Request signing}
-Possibility of signing a certificate signing request with certificate authority's key
+
+\begin{itemize}
+\item \textit{Yes} - The tool supports signing of certificate signing request.
+\item \textit{No} - the tool does not support signing of certificate signing requests.
+\end{itemize}
 
 \paragraph{Create combination of private key and signed chain}
-Possibility of generating private key and chain signed by certificate authority that will be outputed to a single file
+
+\begin{itemize}
+ \item \textit{Yes} - if it is possible to combine private key and corresponding chain into a single file
+ \item \textit{No} - otherwise.
+\end{itemize}
 
 \paragraph{Specify certificate validity}
-{ossibility of choosing how long the certificate will be valid. This should be done by certificate authority.
+
+\begin{itemize}
+ \item \textit{Yes} - Possibility of choosing how long the certificate will be valid. Done by certificate authority.
+ \item \textit{No} - If there is no option to change how long the certificate will be valid, so the duration is a fixed ammount.
+\end{itemize}
 
 \paragraph{Setting Subject Alternative Name for end certificates}
-Possibility of choosing Subject Alternative Name for end certificates. That should be done by IP's or DNS addresses.
+
+\begin{itemize}
+ \item \textit{Yes} - possibility of setting a subject alternative name for certificate. It can be DNS name or IP address.
+ \item \textit{No} - not possible to choose any subject alternative name.
+\end{itemize}
 
 \paragraph{Support for Cryptographic Service Provider}
-Whether the use, choosing and changing of Cryptographic Service Provider is supported.
+\begin{itemize}
+ \item \textit{Yes} - if there is option to change a cryptographic service provider. 
+ \item \textit{No} - the cryptographic service provider canot be changed.
+\end{itemize}
 
+\newpage
 
 \section{Conversions}
 
@@ -207,17 +270,31 @@ Windows PowerShell PKI Module & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HT
 \subsection{Exporting}
 
 \subsubsection{Certificate or certificate chain from a file}
-Possibility of extracting certificate or certificate only from a file. Choice of Yes based on possibility of extracting either from a file.
+\begin{itemize}
+ \item \textit{Yes} - capability of tol to exract certificate or certificate chain from a single file.
+ \item \textit{No} - if extracting is not available.
+\end{itemize}
 
 \subsubsection{Private key only}
-Possibility of extracting private key only from a certificate.
+
+\begin{itemize}
+ \item \textit{Yes} - private key can be exported to a single file.
+ \item \textit{No} - private key extracting is not allowed.
+\end{itemize}
 
 \subsection{Direct conversion between Java Keystore and PKCS\#12 file}
-Possibility of direct conversion (by a command of tested tool) between Java KeyStore and PKCS\#12 type file.
+
+\begin{itemize}
+ \item \textit{Yes} - if tool has a capability to convert Java Keystore to PKCS\#12 file and vica versa.
+ \item \textit{No} - if it doesn't.
+\end{itemize}
 
 \subsection{Importing of certificates and keys into storage files}
-Possibility of importing (additional?) certificates and keys into storage files of said tool. Yes if it is possible to import or add another certificate or key into storage.
 
+\begin{itemize}
+ \item \textit{Yes} - it is possible to import certificates and keys into a tools storage type file \textit{(e. g. PKCS\#12 file)}.
+ \item \textit{No} - it is not possible to import a certificate into a file.
+\end{itemize}
 
 \newpage
 %TOOLS PART
@@ -227,7 +304,7 @@ Possibility of importing (additional?) certificates and keys into storage files 
 \chapter{OpenSSL}
 
 \section{General}
-Tested under Fedora 21, OpenSSL version 1.0.1k-fips
+\textit{Tested under Fedora 21, OpenSSL version 1.0.1k-fips}
   \subsection{Type}
   OpenSSL uses PKCS12 to store keys and certificates. Certificates and keys generated in OpenSSL are however being made into PEM or DER encoded file. PEM or DER encoded keys and certificates can then be stored inside single PKCS\#12 file. 
              
@@ -254,15 +331,16 @@ Tested under Fedora 21, OpenSSL version 1.0.1k-fips
   \subsection{License}
 OpenSSL is free to use commercialy, however creating CA is not advised in O'REILLY's Network Security with OpenSSL by J. Viega, M. Messier and P. Chandra on page 59,
 \begin{displayquote}
-Since OpenSSL's command-line CA functionality was intended primarely as an example of how to use OpenSSL to build a CA, we don't recommend that you attempt to use it in a large production environment.
+\textit{Since OpenSSL's command-line CA functionality was intended primarely as an example of how to use OpenSSL to build a CA, we don't recommend that you attempt to use it in a large production environment.}
 \end{displayquote}
 and also hinted in manual pages:
 \begin{displayquote}
-The ca command is quirky and at times downright unfriendly.
+\textit{The ca command is quirky and at times downright unfriendly.}
 
-The ca utility was originally meant as an example of how to do things in a CA . It was not supposed to be used as a full blown CA itself: nevertheless some people are using it for this purpose.
+\textit{The ca utility was originally meant as an example of how to do things in a CA . It was not supposed to be used as a full blown CA itself: nevertheless some people are using it for this purpose.}
 
-The ca command is effectively a single user command: no locking is done on the various files and attempts to run more than one ca command on the same database can have unpredictable results. 
+\textit{The ca command is effectively a single user command: no locking is done on the various files and attempts to run more than one ca command on the same database can have unpredictable results.}
+
 \end{displayquote}
   
 \section{Generation and signing of certificates}
@@ -394,7 +472,7 @@ To import certificate and private key into a single PKCS\#12 type file use:
 
 \section{General}
 
-Tested under Fedora 21 and OpenSUSE 42.1, openjdk version 1.8.0\_65
+\textit{Tested under Fedora 21 and OpenSUSE 42.1, openjdk version 1.8.0\_65}
 
   \subsection{Type}
 Keytool has native support for both PKCS\#12 and Java KeyStore type files 
@@ -547,7 +625,7 @@ Importing of keys alone is not supported, you need to fold them into a Java KeyS
 
 \section{General}
 
-Tested under Fedora 21, OpenSUSE 42.1, Debian Wheezy, gpgsm (GnuPG) 2.0.29, libgcrypt 1.6.3, libksba 1.3.2 and also MS Windows 10 version 1607 Build 14393.447, MS Windows 8.1 Pro 6.3.9600, gpgsm (GnuPG) 2.0.30 (Gpg4win 2.3.3), libgcrypt 1.6.6, libksba 1.3.4 
+\textit{Tested under Fedora 21, OpenSUSE 42.1, Debian Wheezy, gpgsm (GnuPG) 2.0.29, libgcrypt 1.6.3, libksba 1.3.2 and also MS Windows 10 version 1607 Build 14393.447, MS Windows 8.1 Pro 6.3.9600, gpgsm (GnuPG) 2.0.30 (Gpg4win 2.3.3), libgcrypt 1.6.6, libksba 1.3.4}
 
   \subsection{Type}
 GnuPG can make and view X509 Certificate Signing Requests
@@ -569,7 +647,7 @@ Possible by using \verb+gpgsm --gen-key > <output_file>+ command, but private ke
 
 \section{General}
 
-Tested under MS Windows 10 version 1607 Build 14393.447, Keystore Explorer version 5.2.1
+\textit{Tested under MS Windows 10 version 1607 Build 14393.447, Keystore Explorer version 5.2.1}
 
   \subsection{Type}
 Keystore Explorer supports both Java Keystore and PKCS\#12 type files, in addition it has a support for alternatives to JKS such as JCEKS, BKS, BKS-V1, UBER.
@@ -677,7 +755,7 @@ It is possible to import a certificates and keys by chosing Import option.
 
 \section{General}
 
-Tested under Windows 10 version 1607 Build 14393.447 and Fedora 21, XCA version 1.3.2 using OpenSSL version 1.0.2d
+\textit{Tested under Windows 10 version 1607 Build 14393.447 and Fedora 21, XCA version 1.3.2 using OpenSSL version 1.0.2d}
 
   \subsection{Type}
 XCA works with PKCS\#12 type files, but it is neccessary to make their database file which stores and to which you can import certificates, certificate signing requests or keys.
@@ -693,7 +771,18 @@ XCA is distributed under BSD License - it is free to use for testing and also co
     \subsubsection{Generate keys}
     
       \paragraph{Self-signed certificate}
-You can generate key pair by itself and then use it for generation of certificate. If you do not generate key in advance there is option to generate new key whilst generating a certificate.\textit{{Figure 6.1}} To generate a certificate click on Certificates tab and press New Certificate. There are many options for generating a self-signed certificate, under Source tab you choose a signing algorithm (\verb+MD5|SHA1|SHA224|SHA256|SHA384|SHA512|RIPEMD160+). What must be changed is default hash function because it is set to SHA-1 which is no longer considered safe. Under Subject tab, you shoose Common Name, Organisation, etc. fields of certificate and also choose private key. If you didn't generate key in advance then you can generate a new private key (\verb+RSA|DSA|EC+). For certificate to be accepted by all operating systems you need to choose \verb+Digital Signature & Key Agreement & Certificate Sign+ under Key usage tab. \textit{(Figure 6.2)}
+You can generate key pair by itself and then use it for generation of certificate. If you do not generate key in advance there is option to generate new key whilst generating a certificate.\textit{{Figure 6.1}}  \\
+
+
+To generate a certificate click on Certificates tab and press New Certificate. There are many options for generating a self-signed certificate, under Source tab you choose a signing algorithm.  \\
+
+
+Hash algorithm is one of: \verb+MD5, SHA1, SHA224, SHA256, SHA384, SHA512, RIPEMD160+. It needs to be changed because hash function is set to SHA-1 which is no longer considered safe.  \\
+
+
+Under Subject tab, you shoose Common Name, Organisation, etc. fields of certificate and also choose private key. If you didn't generate key in advance then you can generate a new private key (\verb+RSA|DSA|EC+). For certificate to be accepted by all operating systems you need to choose \verb+Digital Signature & Key Agreement & Certificate Sign+ under Key usage tab. \textit{(Figure 6.2)}
+
+
 \begin{figure}[!ht]
  \caption{Generation of key for new cert}
  \centering
@@ -775,7 +864,7 @@ Certificates and keys can be Exported and imported to/from PKCS\#12 or PEM type 
 
 \section{General}
 
-Tested under Fedora 21, certtool version 3.3.16
+\textit{Tested under Fedora 21, certtool version 3.3.16}
 
   \subsection{Type}
 GnuTLS works with PKCS\#12 PEM encoded files
@@ -900,7 +989,7 @@ Possible.
 
 \section{General}
 
-Tested under MS Windows 10 version 14393.447, makecert.exe version 6.3.9600.17298
+\textit{Tested under MS Windows 10 version 14393.447, makecert.exe version 6.3.9600.17298}
 
   \subsection{Type}
 Makecert can work with PKCS\#12 type files, however  default output is in \verb+.cer+ for certificate and \verb+.pvk+ for private key. To tie together key and certificate you need to combine them into PKCS\#12 type file with \verb+pvk2pfx+ tool (which is also part of Windows SDK). In addition to use the tool you need to start a Developer Command Prompt for Visual Studio (on Windows 10). 
@@ -983,7 +1072,7 @@ For importing of keys and certificates into PKCS\#12 file, use pvk2pfx as in gen
 
 \chapter{Windows PowerShell PKI Module}
 
-Tested under MS Windows 10 version 14393.447
+\textit{Tested under MS Windows 10 version 14393.447}
 
 \section{General}
 
@@ -1052,10 +1141,12 @@ It is possible as exporting a certificate into PKCS\#12 file.
 
 \chapter{Tools Review}
 
-The main thing to understand is, that every tool has had its strong and weak points. Every should be used in complience with required properties of use. That can mean restrictions on used Operating System (e.g. customer has only access to Apple computers with OS X operating system), or for example restrictions how it should be used on Operating System (command line vs GUI programm). In the next part i will try to go over strengths and weaknesses of each tool that I have tested.
+The main thing to understand is, that every tool has had its strong and weak points. Every should be used in complience with required properties of use.\\ 
+
+That can mean restrictions on used Operating System \textit{(e.g. customer has only access to Apple computers with OS X operating system)}, or for example restrictions how it should be used on Operating System \textit{(command line vs GUI programm)}. In the next part i will try to go over strengths and weaknesses of each tool that I have tested.
 
 \section{OpenSSL}
-It is a great command line tool, can work with PEM, DES and PKCS\#12 files. Strong point is a easy form of creating a self-signed certificate, however using it for CA certificates with ca option is not ideal - it is noted in man pages and also a O'REILLY's OpenSSL book.
+It is a great command line tool, can work with PEM, DES and PKCS\#12 files. Strong point is a easy form of creating a self-signed certificate, however using it for CA certificates with ca option is not ideal - it is noted in man pages and also a O'REILLY OpenSSL book.
 Another strong point is configuration, which can be done in file. I tested it with creation of appropriate directories and configs.
 
 \section{Keytool}
@@ -1067,13 +1158,13 @@ Tool that can only make end certificates for authentication, CSR is PEM encoded 
 \section{Keystore Explorer}
 A great GUI tool for when you need to work with different types of Java Keystore files for example supports Bouncy Castle implementation. Even though CSP support is not implicit, there are different choices already implemented. Those can be viewed under \verb+Help->Security Providers+ tab.
 
-Main downfall is that keys of length greater than 4096 take longer to generate (notably RSA of length 16192, it took almost 2 hours to generate).
+Main downfall is that keys of length greater than 4096 take longer to generate \textit{(notably RSA of length 16192, it took almost 2 hours to generate)}.
 
 \section{XCA}
 XCA is a great GUI tool that can work with PEM, DER and PKCS\#12 type of files. Main advantage is simplicity and ammount of options, basic options are readily availiable as a button. There are many exporting options, for example PEM encoded certificate file with PKCS\#8 encrypted key file. Although there is no CSP support, its ease of use makes it a great testing tool.
 
 \section{GnuTLS}
-Command line tool, availiable only under Linux. Very friendly to use, many different options in configuration file. Great support for different key and hash algorithm types. Supports key lengths of higher values (greater than 4096 RSA for example). Its weaknesses are no support for CSP and availibility only under UNIX like Operating Systems.
+Command line tool, availiable only under Linux. Very friendly to use, many different options in configuration file. Great support for different key and hash algorithm types. Supports key lengths of higher values \textit{(greater than 4096 RSA for example)}. Its weaknesses are no support for CSP and availibility only under UNIX like Operating Systems.
 
 \section{Makecert}
 Command line tool, not to be used in production code since microsoft has deprecated it. Very unfriendly to use and only way to use it is to download a whole Windows SDK and use it with Visual Studio console. Overall it shouldn't be used.
@@ -1082,5 +1173,19 @@ Command line tool, not to be used in production code since microsoft has depreca
 \section{Windows PowerShell PKI Module}
 PowerShell Module on Windows Operating Systems, much easier to use and generate new certificates. Downside is, that certificates made by it are RSAwithSHA256 2048bit and that can only be changed with change of Cryptographic Service Provider. It has replaced deprecated Makecert command line tool.
 
+\section{Choosing the right tool}
+The crucial part of deciding which tool to use is to know what is desired. The first choice to make is to decide what file type will be required.
+In this list there are most useful tools for each type:
+
+\begin{itemize}
+ \item \textbf{PKCS\#12} \begin{enumerate}\item \textit{GUI} - XCA \item \textit{Command Line} - OpenSSL \end{enumerate}
+ \item \textbf{Java KeyStore} \begin{enumerate}\item \textit{GUI} - Keystore Explorer \item \textit{Command Line} - keytool \end{enumerate}
+\end{itemize}
+
+Other tested tools can be also used, but \textit{OpenSSL, Keytool, XCA} and \textit{Keystore Explorer} can do almost everything, along with their ease of use. My personal favourite has became \textit{XCA} as it is tool where i checked if information about certificates from other tools checked out.\\
+
+But only because they can do everything doesn't mean they are best at everything, for example if self-signed certificate is neede only for testing purposes, one can be really quickkly made with help Windows PowerShell PKI Module where no additional instalations are required.\\
+
+Considering Java KeyStore tools, only 2 were tested, 1 GUI and 1 Command Line. Nevertheless, even though they have their own upsides and downsides, are easy and quickly ready to use.\\
 
 \end{document}
