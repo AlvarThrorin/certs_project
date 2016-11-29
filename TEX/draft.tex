@@ -22,7 +22,7 @@
 \setlength{\evensidemargin}{0cm}
 \setlength{\textwidth}{500pt}
 
-\title{Review and comparison of tools for manageing X.509 type keys and certificates}
+\title{Review and comparison of tools for managing X.509 type keys and certificates}
 \author{Oliver Bodnár}
 \date{November 2016}
 
@@ -36,7 +36,7 @@
 
 \part{Introduction}
 
-Primary goal of this work is to compare and review some of the basic functionalities \textit{(e.g. generation of keys and certificates, ability to create a certificate signing request,...)} of tools working with keys and certificates in X509 public key infrastructure. Comparison of tools is necessary to understand that ability of a tool to do everything that was tested does not mean that it is the best tool to use in every situation.
+Primary goal of this work is to compare and review some of the basic functionalities \textit{(e.g. generation of keys and certificates, ability to create a certificate signing request,...)} of tools working with keys and certificates in X.509 public key infrastructure. Comparison of tools is necessary to understand that ability of a tool to do everything that was tested does not mean that it is the best tool to use in every situation.
 \part{Overview}
 
 \chapter{Overview Tables}
@@ -57,7 +57,7 @@ GnuPG                         & None   & \cellcolor[HTML]{FE0000}No             
 Keystore Explorer             & Both   & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{FFC702}Win $\vert$ OSX & Graphical Interface \\ \hline
 XCA                           & PKCS12 & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{34FF34}All             & Graphical Interface \\ \hline
 GnuTLS                        & PKCS12 & \cellcolor[HTML]{34FF34}Yes                        & Public  & \cellcolor[HTML]{FFC702}UNIX            & Command Line        \\ \hline
-Makecert                      & PKCS12 & \cellcolor[HTML]{FE0000}No			    & Public  & \cellcolor[HTML]{FFC702}Windows         & Command Line        \\ \hline
+Makecert and pvk2pfx          & PKCS12 & \cellcolor[HTML]{FE0000}No			    & Public  & \cellcolor[HTML]{FFC702}Windows         & Command Line        \\ \hline
 Windows PowerShell PKI Module & PKCS12 & \cellcolor[HTML]{34FF34}Yes			    & Public  & \cellcolor[HTML]{FFC702}Windows         & Command Line        \\ \hline
 \end{tabular}
 \end{adjustbox}
@@ -123,7 +123,7 @@ GnuPG                         & \cellcolor[HTML]{FE0000}No                      
 Keystore explorer             & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
 XCA                           & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
 GnuTLS                        & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
-Makecert                      & \cellcolor[HTML]{34FF34}Yes					     & \cellcolor[HTML]{FE0000}No  & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{FFC702}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
+Makecert and pvk2pfx          & \cellcolor[HTML]{34FF34}Yes					     & \cellcolor[HTML]{FE0000}No  & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{FFC702}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
 Windows PowerShell PKI Module & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{FE0000}No  & \cellcolor[HTML]{FE0000}No  & \cellcolor[HTML]{FE0000}No  & \cellcolor[HTML]{FE0000}No  & \cellcolor[HTML]{FE0000}No  \\ \hline
 \end{tabular}
 \end{adjustbox}
@@ -197,7 +197,7 @@ GnuPG                         & \cellcolor[HTML]{FE0000}No    & \cellcolor[HTML]
 Keystore explorer             & \cellcolor[HTML]{34FF34}Yes   & \cellcolor[HTML]{34FF34}Yes              & \cellcolor[HTML]{34FF34}Yes                    & \cellcolor[HTML]{34FF34}Yes                & \cellcolor[HTML]{FE0000}No                                                  \\ \hline
 XCA                           & \cellcolor[HTML]{34FF34}Yes   & \cellcolor[HTML]{34FF34}Yes              & \cellcolor[HTML]{34FF34}Yes                    & \cellcolor[HTML]{34FF34}Yes                & \cellcolor[HTML]{FE0000}No                                                  \\ \hline
 GnuTLS                        & \cellcolor[HTML]{34FF34}Yes   & \cellcolor[HTML]{FE0000}No               & \cellcolor[HTML]{34FF34}Yes                    & \cellcolor[HTML]{34FF34}Yes                & \cellcolor[HTML]{FE0000}No                                                  \\ \hline
-Makecert	              & \cellcolor[HTML]{FE0000}No    & \cellcolor[HTML]{FE0000}No	 	 & \cellcolor[HTML]{34FF34}Yes	               & \cellcolor[HTML]{FE0000}No                 & \cellcolor[HTML]{34FF34}Yes              		                          \\ \hline
+Makecert and pvk2pfx          & \cellcolor[HTML]{FE0000}No    & \cellcolor[HTML]{FE0000}No	 	 & \cellcolor[HTML]{34FF34}Yes	               & \cellcolor[HTML]{FE0000}No                 & \cellcolor[HTML]{34FF34}Yes              		                          \\ \hline
 Windows PowerShell PKI Module & \cellcolor[HTML]{FE0000}No    & \cellcolor[HTML]{FE0000}No	         & \cellcolor[HTML]{34FF34}Yes	               & \cellcolor[HTML]{34FF34}Yes	            & \cellcolor[HTML]{34FF34}Yes                                                 \\ \hline
 \end{tabular}
 \end{adjustbox}
@@ -304,9 +304,9 @@ Windows PowerShell PKI Module & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HT
 \chapter{OpenSSL}
 
 \section{General}
-\textit{Tested under Fedora 21, OpenSSL version 1.0.1k-fips}
+\textit{Tested under Fedora 21, OpenSSL version 1.0.1k-fips} %DOPLNIT INFO O CNF FILE
   \subsection{Type}
-  OpenSSL uses PKCS12 to store keys and certificates. Certificates and keys generated in OpenSSL are however being made into PEM or DER encoded file. PEM or DER encoded keys and certificates can then be stored inside single PKCS\#12 file. 
+  OpenSSL uses PKCS12 to store keys and certificates. Certificates and keys generated in OpenSSL are being made into PEM or DER encoded file. PEM or DER encoded keys and certificates can then be stored inside single PKCS\#12 file. 
              
   \subsection{View information}
   
@@ -357,7 +357,7 @@ and also hinted in manual pages:
               -out certificate_name.crt
       \end{verbatim}
 
-However for any other type of Key generating algorithm, it is better to create key separately. There are options to create a key in onecommand, but they are quirky.
+However for any other type of Key generating algorithm, it is better to create key separately. There are options to create a key in one command, but they are quirky.
 
       \paragraph{Certificate Signing Request}
       It is possible to generate private key and CSR with
@@ -388,7 +388,7 @@ basicConstraints=critical,CA:<BOOL_VAL>, pathlen:<maxChainLengthInteger>
       \paragraph{Specify Type}
 To specify if generated certificate belongs to CA or is end certificate you choose \verb+<BOOL_VAL>+ true or false respectively.
       \paragraph{Specify path length}
-Specifying of path length is made by setting a \verb+<maxChainLengthInteger>+ to desired value (e.g. if generated certificate should be used only for generating end certificates the value is 0)
+Specifying of path length is made by setting a \verb+<maxChainLengthInteger>+ to desired value (e.g. if generated certificate/key should be used only for signingend certificates the value is 0)
   \subsection{Specifications}
   
     \subsubsection{Certificate Signing Request signing}
@@ -477,7 +477,7 @@ To import certificate and private key into a single PKCS\#12 type file use:
   \subsection{Type}
 Keytool has native support for both PKCS\#12 and Java KeyStore type files 
   \subsection{View and information}
-When viewing certificates, command for PEM and DER certificates will return errors with command for PKCS\#12 amd JKS files.
+When viewing certificates, command for PEM and DER certificates will return errors with command for PKCS\#12 and JKS files.
 
 To view information about PEM or DER encoded certificate use:
 \begin{verbatim}
@@ -510,7 +510,7 @@ keytool -genkey -keyalg [RSA|DSA] -alias [aliasname] \
 
 It should be noted that afterwards, when user is prompted to input First and Last name it is equal to Common Name parameter.
 
-Keytool natively supports only DSA of length in between 512 and 1024, and is considered to be dangerous to use. RSA with key length of at least 2048 is preffered.
+Keytool natively supports only DSA of length in between 512 and 1024, and is considered to be dangerous to use. RSA with key length of at least 2048 is preferred.
 
       \paragraph{Certificate Signing Request}
 To generate a Certificate Signing Request generation of a key pair with alias is needed:
@@ -538,7 +538,7 @@ To choose signing algorithm use \verb+-sigalg+ option which can have values of \
 With keytool you can make a self-signed CA certificate by using \verb+-ext BC=ca:[true|false]+ option.
 
       \paragraph{Specify path length}
-Specifying of path length is possible while making a certificate by using  \\
+Specifying path length is possible while making a certificate by using  \\
 \verb+-ext BC=pathlen:[int path length]+ option.
 
   \subsection{Specifications}
@@ -642,6 +642,7 @@ GnuPG is free to use both for testing and in production code.
       \paragraph{Certificate Signing Request}
 Possible by using \verb+gpgsm --gen-key > <output_file>+ command, but private key is not a part of output CSR.     
 
+GnuPG is unable to do anything besides creating a certificate signing request in X.509 public key infrastructure
 
 \chapter{Keystore Explorer}
 
@@ -749,7 +750,7 @@ It is possible to export a private key from a keystore by simply right-clicking 
 To change a type of file simply right-click on the blank space and choose change type option. In addition to changing a pkcs12 file type to JKS it is possible to change type of files between all supported types of Keystore Explorer.
   
   \subsection{Importing certificates and keys into storage files}
-It is possible to import a certificates and keys by chosing Import option.
+It is possible to import certificates and keys by chosing Import option.
 
 \chapter{XCA}
 
@@ -762,7 +763,7 @@ XCA works with PKCS\#12 type files, but it is neccessary to make their database 
   \subsection{View and information}
 You can view information about keys, certificates and CSRs by double clicking a chosen file.
   \subsection{License}
-XCA is distributed under BSD License - it is free to use for testing and also commercialy.
+XCA is distributed under BSD License - it is free to use for testing and also commercially.
   
 \section{Generation and signing of certificates}
 
@@ -842,9 +843,9 @@ Both options are equivalent.
     \subsubsection{Create combination of private key and signed chain}
 If the private key is provided PEM encoded it can be imported to XCA's database. If not you need to generate new key pair, then use export option to export private part of a key, delete key pair from database and then import private key. to create a combination, simply generate new certificate while using said private key.
     \subsubsection{Specify certificate validity}
-Time period during which is a certificate valid is defined under Extensions tab.
+Time period during which a certificate is valid is defined under Extensions tab.
     \subsubsection{Setting Subject Alternative Name for end certificates}
-Subject Alternative Names are specified in appropriate section under a Extensions tab.
+Subject Alternative Names are specified in appropriate section under an Extensions tab.
 \textit{(Figure 6.5)}
 
 \section{Conversions}
@@ -871,7 +872,7 @@ GnuTLS works with PKCS\#12 PEM encoded files
   \subsection{View and information}
 To view information about certificate use \verb+certtool --certificate-info --infile [file.pem]+ option.
   \subsection{License}
-GnuTLS is under Gnu Public License \- free to use commercialy.
+GnuTLS is under Gnu Public License \- free to use commercially.
   
 \section{Generation and signing of certificates}
 
@@ -894,7 +895,7 @@ certtool --generate-self-signed --load-privkey ca-key.pem \
 \end{verbatim}
 
 More options when generating self-signed certificate (or a CSR) you need to create a config file which has structure as is in appendix \textit{GnuTLS.cfg} 
-For whole list of options in a config file look up \verb+man certtol+.
+For whole list of options in a config file look up \verb+man certtool+.
       
 \paragraph{Certificate Signing Request}
 Creating of CSR is made by:
@@ -934,10 +935,10 @@ Length is specified when generating keys by \verb+--sec-param=[low|legacy|medium
 
 Also, to choose exact bit length you can use \verb+--bits=<length>+ option - tested on \verb+--rsa --bits=32768+ option which generated 32kbit RSA key.
 
-To define a hash algorithm use \verb+--hash=[SHA1|RMD160|SHA256|SHA384|SHA512]+ option while generating a certificate.
-
       \paragraph{Specify algorithm}
 Algorithm for key generation is specified in \verb+--[rsa|dsa|ecc]+ option where rsa = RSA, dsa = DSA, ecc = ECDSA.
+
+To define a hash algorithm use \verb+--hash=[SHA1|RMD160|SHA256|SHA384|SHA512]+ option while generating a certificate.
     
   \subsubsection{Basic constraints}
     
@@ -985,16 +986,16 @@ Possible.
 
 
 
-\chapter{Makecert}
+\chapter{Makecert and pvk2pfx}
 
 \section{General}
 
-\textit{Tested under MS Windows 10 version 14393.447, makecert.exe version 6.3.9600.17298}
+\textit{Tested under MS Windows 10 version 14393.447, makecert.exe version 6.3.9600.17298} \\
+Makecert is deprecated by Microsoft itself as cited on MSDN MakeCert site.
 
   \subsection{Type}
 Makecert can work with PKCS\#12 type files, however  default output is in \verb+.cer+ for certificate and \verb+.pvk+ for private key. To tie together key and certificate you need to combine them into PKCS\#12 type file with \verb+pvk2pfx+ tool (which is also part of Windows SDK). In addition to use the tool you need to start a Developer Command Prompt for Visual Studio (on Windows 10). 
-\\ 
-In addition to that makecert is deprecated itself as cited on MSDN MakeCert site.
+
   \subsection{License}
 It is free to use, falls under the Windows SDK.
   
@@ -1039,7 +1040,7 @@ Where:
       \paragraph{Specify length}
 Length is specified by \verb+-len <int key_length>+ option.
       \paragraph{Specify algorithm}
-To specify hash algorithm use \verb+-a [sha256|sha384|sha512]+ option. Supported are also SHA1 and MD5 but those are considered unsafe.
+To specify hash algorithm use \verb+-a [sha256|sha384|sha512]+ option. Supported are also SHA1 and MD5 but those are considered insecure.
 
 To specify key algorithm you must change CSP.
     \subsubsection{Basic constraints}
@@ -1067,7 +1068,7 @@ There is support for CSP in makecert by using \verb+-sp <provider_name> -sy <pro
 Private key is stored and generated while generating a certificate but the type .pvk is uncommon.
 
   \subsection{Importing certificates and keys into storage files}
-For importing of keys and certificates into PKCS\#12 file, use pvk2pfx as in generating self-signed part. There is just option to add 1 certificate and 1 private key into a file.
+For importing of keys and certificates into PKCS\#12 file, use \verb+pvk2pfx+ as in generating self-signed part. There is just option to add 1 certificate and 1 private key into a file.
 
 
 \chapter{Windows PowerShell PKI Module}
@@ -1082,7 +1083,7 @@ Windows PowerShell PKI Module works with Windows internal certificate storage bu
   \subsection{View and information}
 To view information about certificates use \verb+Get-ChildItem -Path <path_to_cert>+ command where \verb+<path_to_cert>+ usually begins with \verb+Cert:\+ option.
 
-This commands howeve shows only thumbprint of certificate and a \verb+dns.name+. 
+This commands however show only thumbprint of certificate and a \verb+dns.name+. 
   \subsection{License}
 License is Public, but working Microsoft Windows OS with PowerShell installed is needed.
   
@@ -1135,7 +1136,7 @@ Where:
 \end{itemize}
 
   \subsection{Importing certificates and keys into storage files}
-It is possible as exporting a certificate into PKCS\#12 file.
+It is possible in a simmilar way as exporting a certificate into PKCS\#12 file. Only difference is that all certificates that should be imported into a single folder and then \verb+<path>+ should be set to that directory. 
   
 \part{Conclusion}
 
@@ -1143,25 +1144,25 @@ It is possible as exporting a certificate into PKCS\#12 file.
 
 The main thing to understand is, that every tool has had its strong and weak points. Every should be used in complience with required properties of use.\\ 
 
-That can mean restrictions on used Operating System \textit{(e.g. customer has only access to Apple computers with OS X operating system)}, or for example restrictions how it should be used on Operating System \textit{(command line vs GUI programm)}. In the next part i will try to go over strengths and weaknesses of each tool that I have tested.
+That can mean restrictions on used Operating System \textit{(e.g. customer has only access to Apple computers with OS X operating system)}, or for example restrictions how it should be used on Operating System \textit{(command line vs GUI program)}. In the next part i will try to go over strengths and weaknesses of each tool that I have tested.
 
 \section{OpenSSL}
-It is a great command line tool, can work with PEM, DES and PKCS\#12 files. Strong point is a easy form of creating a self-signed certificate, however using it for CA certificates with ca option is not ideal - it is noted in man pages and also a O'REILLY OpenSSL book.
+It is a great command line tool, can work with PEM, DER and PKCS\#12 files. Strong point is an easy form of creating a self-signed certificate, however using it for CA certificates with ca option is not ideal - it is noted in manual pages and also a O'REILLY OpenSSL book.
 Another strong point is configuration, which can be done in file. I tested it with creation of appropriate directories and configs.
 
 \section{Keytool}
-Keytool is the only command line tool using Java Keystore to store keys and certificates, which i consider it main strong point. By default the CSP is \verb+java.security.provider+ which allows RSA and DSA options and SHA-1,MD5,SHA-256 and SHA-512 hash algorithms. This Changes when choosing other Cryptographic Service Provider. Working with it is quite easy and support for exporting as PKCS\#12 is usefull addition.
+Keytool is the only command line tool using Java Keystore to store keys and certificates, which i consider it main strong point. By default the CSP is \verb+java.security.provider+ which allows RSA and DSA options and SHA-1,MD5,SHA-256 and SHA-512 hash algorithms. This changes when choosing other Cryptographic Service Provider. Working with it is quite easy and support for exporting as PKCS\#12 is usefull addition.
 
 \section{GnuPG}
 Tool that can only make end certificates for authentication, CSR is PEM encoded and does not hold generated private key inside. Unreliable as it has been tested on 5 different Operating Systems and worked only on clean install of Windows 8.1.
 
 \section{Keystore Explorer}
-A great GUI tool for when you need to work with different types of Java Keystore files for example supports Bouncy Castle implementation. Even though CSP support is not implicit, there are different choices already implemented. Those can be viewed under \verb+Help->Security Providers+ tab.
+A great GUI tool for when you need to work with different types of Java Keystore files. For example, Keystore Explorer supports Bouncy Castle implementation. Even though CSP support is not implicit, there are different choices already implemented. Those can be viewed under \verb+Help->Security Providers+ tab.
 
 Main downfall is that keys of length greater than 4096 take longer to generate \textit{(notably RSA of length 16192, it took almost 2 hours to generate)}.
 
 \section{XCA}
-XCA is a great GUI tool that can work with PEM, DER and PKCS\#12 type of files. Main advantage is simplicity and ammount of options, basic options are readily availiable as a button. There are many exporting options, for example PEM encoded certificate file with PKCS\#8 encrypted key file. Although there is no CSP support, its ease of use makes it a great testing tool.
+XCA is a great GUI tool that can work with PEM, DER and PKCS\#12 type of files. Main advantage is simplicity and amount of options, basic options are readily availiable as a button. There are many exporting options, for example PEM encoded certificate file with PKCS\#8 encrypted key file. Although there is no CSP support, its ease of use makes it a great testing tool.
 
 \section{GnuTLS}
 Command line tool, availiable only under Linux. Very friendly to use, many different options in configuration file. Great support for different key and hash algorithm types. Supports key lengths of higher values \textit{(greater than 4096 RSA for example)}. Its weaknesses are no support for CSP and availibility only under UNIX like Operating Systems.
@@ -1173,7 +1174,7 @@ Command line tool, not to be used in production code since microsoft has depreca
 \section{Windows PowerShell PKI Module}
 PowerShell Module on Windows Operating Systems, much easier to use and generate new certificates. Downside is, that certificates made by it are RSAwithSHA256 2048bit and that can only be changed with change of Cryptographic Service Provider. It has replaced deprecated Makecert command line tool.
 
-\section{Choosing the right tool}
+\chapter{Choosing the right tool}
 The crucial part of deciding which tool to use is to know what is desired. The first choice to make is to decide what file type will be required.
 In this list there are most useful tools for each type:
 
@@ -1182,9 +1183,9 @@ In this list there are most useful tools for each type:
  \item \textbf{Java KeyStore} \begin{enumerate}\item \textit{GUI} - Keystore Explorer \item \textit{Command Line} - keytool \end{enumerate}
 \end{itemize}
 
-Other tested tools can be also used, but \textit{OpenSSL, Keytool, XCA} and \textit{Keystore Explorer} can do almost everything, along with their ease of use. My personal favourite has became \textit{XCA} as it is tool where i checked if information about certificates from other tools checked out.\\
+Other tested tools can be also used, but \textit{OpenSSL, Keytool, XCA} and \textit{Keystore Explorer} can do almost everything, along with their ease of use. My personal favourite has become \textit{XCA} as it is a tool where I confirmed if information about certificates from other tools was as expected.\\
 
-But only because they can do everything doesn't mean they are best at everything, for example if self-signed certificate is neede only for testing purposes, one can be really quickkly made with help Windows PowerShell PKI Module where no additional instalations are required.\\
+But only because they can do everything doesn't mean they are best at everything, for example if self-signed certificate is needed only for testing purposes, one can be really quickly made with the help of Windows PowerShell PKI Module where no additional instalations are required.\\
 
 Considering Java KeyStore tools, only 2 were tested, 1 GUI and 1 Command Line. Nevertheless, even though they have their own upsides and downsides, are easy and quickly ready to use.\\
 
