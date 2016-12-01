@@ -22,7 +22,7 @@
 \setlength{\evensidemargin}{0cm}
 \setlength{\textwidth}{500pt}
 
-\title{Review and comparison of tools for managing X.509 type keys and certificates}
+\title{Review and comparison of tools for managing X.509 certificates and keys}
 \author{Oliver Bodnár}
 \date{November 2016}
 
@@ -206,24 +206,20 @@ Windows PowerShell PKI Module & \cellcolor[HTML]{FE0000}No    & \cellcolor[HTML]
 
 \paragraph{Certificate Signing Request signing}
 
-\begin{itemize}
-\item \textit{Yes} - The tool supports signing of certificate signing request.
-\item \textit{No} - the tool does not support signing of certificate signing requests.
-\end{itemize}
+\textit{Yes} means that the tool supports signing of certificate signing request. \textit{No} if it does not support signing of certificate signing requests.
 
 \paragraph{Create combination of private key and signed chain}
 
-\begin{itemize}
- \item \textit{Yes} - if it is possible to combine private key and corresponding chain into a single file
- \item \textit{No} - otherwise.
-\end{itemize}
+\textit{Yes} if it is possible to combine private key and corresponding chain into a single file, \textit{No} - otherwise.
+
 
 \paragraph{Specify certificate validity}
 
-\begin{itemize}
- \item \textit{Yes} - Possibility of choosing how long the certificate will be valid. Done by certificate authority.
- \item \textit{No} - If there is no option to change how long the certificate will be valid, so the duration is a fixed ammount.
-\end{itemize}
+\textit{Yes} - Possibility of choosing how long the certificate will be valid. Done by certificate authority. \textit{No} - If there is no option to change how long the certificate will be valid, so the duration is a fixed ammount.
+
+Time how long the certificate will be valid can be given in csr but only as a suggestion. Ultimately the real time of
+validity is always given by CA signing the CSR.
+
 
 \paragraph{Setting Subject Alternative Name for end certificates}
 
@@ -381,7 +377,7 @@ basicConstraints=critical,CA:<BOOL_VAL>, pathlen:<maxChainLengthInteger>
       \paragraph{Specify Type}
 To specify if generated certificate belongs to CA or is end certificate you choose \verb+<BOOL_VAL>+ true or false respectively.
       \paragraph{Specify path length}
-Specifying of path length is made by setting a \verb+<maxChainLengthInteger>+ to desired value (e.g. if generated certificate/key should be used only for signingend certificates the value is 0)
+Specifying of path length is made by setting a \verb+<maxChainLengthInteger>+ to desired value (e.g. if generated certificate/key should be used only for signing end certificates the value is 0)
   \subsection{Specifications}
   
     \subsubsection{Certificate Signing Request signing}
@@ -435,7 +431,7 @@ openssl pkcs12 -in name.[pfx|p12] -nokeys -clcerts -out name.pem
 \begin{verbatim}
 openssl pkcs12 -in name.[pfx|p12] -nokeys -cacerts -out CAchain.pem
 \end{verbatim}
-    It should be mentioned that if there are multiple certificates in a chain they are all going to be in same output file.
+    It should be noted that if there are multiple certificates in a chain they are all going to be in same output file.
 
     \subsubsection{Private key only}
     To export an encrypted private key use:
@@ -458,6 +454,21 @@ To import certificate and private key into a single PKCS\#12 type file use:
          -inkey privateKey.key -in certificate.crt \
          -certfile CACert.crt
 \end{verbatim}
+
+\section{Note}
+However using self-signed certificate made with \verb+ca+ option as CA certificates is not ideal -  creating CA is not advised in O'REILLY's Network Security with OpenSSL by J. Viega, M. Messier and P. Chandra on page 59,
+\begin{displayquote}
+\textit{Since OpenSSL's command-line CA functionality was intended primarely as an example of how to use OpenSSL to build a CA, we don't recommend that you attempt to use it in a large production environment.}
+\end{displayquote}
+and also hinted in manual pages:
+\begin{displayquote}
+\textit{The ca command is quirky and at times downright unfriendly.}
+
+\textit{The ca utility was originally meant as an example of how to do things in a CA . It was not supposed to be used as a full blown CA itself: nevertheless some people are using it for this purpose.}
+
+\textit{The ca command is effectively a single user command: no locking is done on the various files and attempts to run more than one ca command on the same database can have unpredictable results.}
+
+\end{displayquote}
 
 
 
@@ -635,8 +646,8 @@ GnuPG is free to use both for testing and in production code.
     
       \paragraph{Certificate Signing Request}
 Possible by using \verb+gpgsm --gen-key > <output_file>+ command, but private key is not a part of output CSR.     
-
-GnuPG is unable to do anything besides creating a certificate signing request in X.509 public key infrastructure
+\section{Note}
+GnuPG is unable to do anything besides creating a certificate signing request in X.509 public key infrastructure, that does not include a private key within itself.
 
 \chapter{Keystore Explorer}
 
@@ -646,7 +657,7 @@ GnuPG is unable to do anything besides creating a certificate signing request in
 
   \subsection{Type}
 Keystore Explorer supports both Java Keystore and PKCS\#12 type files, in addition it has a support for alternatives to JKS such as JCEKS, BKS, BKS-V1, UBER.
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
  \caption{Choosing type}
  \centering
   \includegraphics[width=0.5\textwidth]{../Dependancies/Keystore_Explorer/Type.jpg}
@@ -667,13 +678,13 @@ Keystore Explorer is free to use utility, License is public.
       \paragraph{Self-signed certificate}
 It is possible to generate a key pair and self-signed certificate, simply click on icon or double click on blank space, choose algorithm and key length. Then you can choose all the other options such as Basic Constraints and Subject Alternative Name. \textit{(Figure 5.3)}
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
  \caption{Generating keys}
  \centering
   \includegraphics[width=0.5\textwidth]{../Dependancies/Keystore_Explorer/genKeys.jpg}
 \end{figure}
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
  \caption{Generating certificate}
  \centering
   \includegraphics[width=0.5\textwidth]{../Dependancies/Keystore_Explorer/genCert.jpg}
@@ -684,7 +695,7 @@ You can also set up default pre-fill of Common Name, Organisational Unit, Organi
       \paragraph{Certificate Signing Request}
 It is possible to make Certificate Signing Request in Keystore Explorer. Simply generate key pair certificate and then right click the generated certificate and choose Generate CSR option. \textit{(Figure 5.4)}
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
  \caption{Generating a CSR}
  \centering
   \includegraphics[width=0.5\textwidth]{../Dependancies/Keystore_Explorer/genCSR.jpg}
@@ -698,7 +709,7 @@ Algorithm of keys is specified when generating keys and the certificate hash fun
 
     \subsubsection{Basic constraints}
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
  \caption{Basic Constraints}
  \centering
   \includegraphics[width=0.5\textwidth]{../Dependancies/Keystore_Explorer/Basic_Constraints.jpg}
@@ -715,7 +726,7 @@ Specifying of max path length is made also by changing v3 part of x509 certifica
     \subsubsection{Certificate Signing Request signing}
 To sign a Certificate Signing Request simply right-click a Certificate Authority certificate and use the \verb+sign->CSR+ option. Then you need to import CA response that was generated and saved in a desired place into a certificate from which the CSR was generated. \textit{(Figure 5.6)}
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
  \caption{Signing of a CSR}
  \centering
   \includegraphics[width=0.5\textwidth]{../Dependancies/Keystore_Explorer/CSRsign.jpg}
@@ -778,13 +789,13 @@ Hash algorithm is one of: \verb+MD5, SHA1, SHA224, SHA256, SHA384, SHA512, RIPEM
 Under Subject tab, you shoose Common Name, Organisation, etc. fields of certificate and also choose private key. If you didn't generate key in advance then you can generate a new private key (\verb+RSA|DSA|EC+). For certificate to be accepted by all operating systems you need to choose \verb+Digital Signature & Key Agreement & Certificate Sign+ under Key usage tab. \textit{(Figure 6.2)}
 
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
  \caption{Generation of key for new cert}
  \centering
   \includegraphics[width=0.5\textwidth]{../Dependancies/XCA/genKey.jpg}
 \end{figure}
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
  \caption{Specify usage}
  \centering
   \includegraphics[width=0.5\textwidth]{../Dependancies/XCA/genKey_specif.jpg}
@@ -793,7 +804,7 @@ Under Subject tab, you shoose Common Name, Organisation, etc. fields of certific
 
       \paragraph{Certificate Signing Request}
 Certificate Signing Request is generated similarly as a certificate itself, only difference is that you go under Certificate signing request tab and press New Request.
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
  \caption{Generation of CSR}
  \centering
   \includegraphics[width=0.5\textwidth]{../Dependancies/XCA/newCSR.jpg}
@@ -803,7 +814,7 @@ Certificate Signing Request is generated similarly as a certificate itself, only
 Length of keys is specified during generation of keys.
       \paragraph{Specify algorithm}
 Algorithm used for key generation is specified during generation of keys (\verb+RSA|DSA|EC+).
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
  \caption{Specifying of length and algorithm used}
  \centering
   \includegraphics[width=0.5\textwidth]{../Dependancies/XCA/genKeylength.jpg}
@@ -817,7 +828,7 @@ Type of a certificate is chosen under Extensions tab.
       \paragraph{Specify path length}
 Path Length is also specified under Extensions tab.
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
  \caption{Basic constraints, validity and SAN}
  \centering
   \includegraphics[width=0.5\textwidth]{../Dependancies/XCA/BC_ext.png}
@@ -835,7 +846,10 @@ To sign CSR you must have a CA certificate already in XCA's database. If a CA is
 Both options are equivalent.    
 
     \subsubsection{Create combination of private key and signed chain}
-If the private key is provided PEM encoded it can be imported to XCA's database. If not you need to generate new key pair, then use export option to export private part of a key, delete key pair from database and then import private key. to create a combination, simply generate new certificate while using said private key.
+If the private key is provided PEM encoded it can be imported to XCA's database. If not you need to generate new key pair, then use export option to export private part of a key, delete key pair from database and then import private key. To create a combination, simply generate new certificate while using said private key.
+
+To export certificate with private key and certificate chain, simply use Export option under \textit{Certificates} tab. There you can choose if you wish to export it in a single \textit{PKCS\#12} type file or certificate and key separately, PEM encoded.
+
     \subsubsection{Specify certificate validity}
 Time period during which a certificate is valid is defined under Extensions tab.
     \subsubsection{Setting Subject Alternative Name for end certificates}
@@ -1067,7 +1081,7 @@ There is support for CSP in makecert by using \verb+-sp <provider_name> -sy <pro
   \subsection{Exporting}
   
     \subsubsection{Private key only}
-Private key is stored and generated while generating a certificate but the type .pvk is uncommon.
+Private key is stored and generated while generating a certificate but the type .pvk is uncommon. It is Microsoft's own key storage type more on \url{http://www.drh-consultancy.demon.co.uk/pvk.html}
 
   \subsection{Importing certificates and keys into storage files}
 For importing of keys and certificates into PKCS\#12 file, use \verb+pvk2pfx+ as in generating self-signed part. There is just option to add 1 certificate and 1 private key into a file.
@@ -1149,19 +1163,9 @@ The main thing to understand is, that every tool has had its strong and weak poi
 That can mean restrictions on used Operating System \textit{(e.g. customer has only access to Apple computers with OS X operating system)}, or for example restrictions how it should be used on Operating System \textit{(command line vs GUI program)}. In the next part i will try to go over strengths and weaknesses of each tool that I have tested.
 
 \section{OpenSSL}
-It is a great command line tool, can work with PEM, DER and PKCS\#12 files. Strong point is an easy form of creating a self-signed certificate, however using it for CA certificates with ca option is not ideal -  creating CA is not advised in O'REILLY's Network Security with OpenSSL by J. Viega, M. Messier and P. Chandra on page 59,
-\begin{displayquote}
-\textit{Since OpenSSL's command-line CA functionality was intended primarely as an example of how to use OpenSSL to build a CA, we don't recommend that you attempt to use it in a large production environment.}
-\end{displayquote}
-and also hinted in manual pages:
-\begin{displayquote}
-\textit{The ca command is quirky and at times downright unfriendly.}
-
-\textit{The ca utility was originally meant as an example of how to do things in a CA . It was not supposed to be used as a full blown CA itself: nevertheless some people are using it for this purpose.}
-
-\textit{The ca command is effectively a single user command: no locking is done on the various files and attempts to run more than one ca command on the same database can have unpredictable results.}
-
-\end{displayquote}
+It is a great command line tool, can work with PEM, DER and PKCS\#12 files. Strong point is a easy form of
+creating a self-signed certificate, however using it for CA certificates with ca option is not ideal - it is noted in man
+pages and also a O’REILLY OpenSSL book. 
 
 
 On the other hand strong point of OpenSSL is configuration of created certificate, which can be done in file. I tested it with creation of appropriate directories and configs.
