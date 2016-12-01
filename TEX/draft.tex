@@ -305,6 +305,12 @@ Windows PowerShell PKI Module & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HT
 
 \section{General}
 \textit{Tested under Fedora 21, OpenSSL version 1.0.1k-fips} %DOPLNIT INFO O CNF FILE
+
+OpenSSL heavily relies on a configuration file that needs to be prepared along with a default directory sequence in advance. Hierarchy of that directory sequence can be seen in supplied OpenSSL.cnf file under \verb+[ CA_default ]+ part.
+
+Time how long the certificate will be valid can be given in csr but only as a suggestion. Ultimately the real time of
+validity is always given by CA signing the CSR.
+
   \subsection{Type}
   OpenSSL uses PKCS12 to store keys and certificates. Certificates and keys generated in OpenSSL are being made into PEM or DER encoded file. PEM or DER encoded keys and certificates can then be stored inside single PKCS\#12 file. 
              
@@ -329,20 +335,7 @@ Windows PowerShell PKI Module & \cellcolor[HTML]{34FF34}Yes      & \cellcolor[HT
 
   
   \subsection{License}
-OpenSSL is free to use commercialy, however creating CA is not advised in O'REILLY's Network Security with OpenSSL by J. Viega, M. Messier and P. Chandra on page 59,
-\begin{displayquote}
-\textit{Since OpenSSL's command-line CA functionality was intended primarely as an example of how to use OpenSSL to build a CA, we don't recommend that you attempt to use it in a large production environment.}
-\end{displayquote}
-and also hinted in manual pages:
-\begin{displayquote}
-\textit{The ca command is quirky and at times downright unfriendly.}
-
-\textit{The ca utility was originally meant as an example of how to do things in a CA . It was not supposed to be used as a full blown CA itself: nevertheless some people are using it for this purpose.}
-
-\textit{The ca command is effectively a single user command: no locking is done on the various files and attempts to run more than one ca command on the same database can have unpredictable results.}
-
-\end{displayquote}
-  
+OpenSSL is free to use commercialy. Full text is available at \url{https://www.openssl.org/source/license.html}  
 \section{Generation and signing of certificates}
 
   \subsection{Keys, certificates and basic constraints}
@@ -408,7 +401,8 @@ openssl ca -config ca/openssl.cnf \
 	        -chain -CAfile ca-all.crt -password pass:PASSWORD
 \end{verbatim}
     \subsubsection{Specify certificate validity}
-    Time how long the certificate will be valid can be given in csr but only as a suggestion. Ultimately the real time of validity is always given by CA signing the CSR.
+    Time how long the certificate will be valid is chosen by CA during signing the CSR, where in command for signing certificate signing request we choose desired duration in days by changing \verb+-days <velidity_time>+ part.
+
     \subsubsection{Setting Subject Alternative Name for end certificates}
     The Subject Alternative Name is also given in \verb+[ v3_req ]+ part of openssl.cnf that CA uses. It can be given as an IP address but also as a DNS name.
 
@@ -950,9 +944,14 @@ Path length is specified by \verb+path_len=<value>+ option in cert.cfg file, whe
   \subsection{Specifications}
   
     \subsubsection{Certificate Signing Request signing}
-Possible %but i need to look wy it does not work for me
-    \subsubsection{Create combination of private key and signed chain}
-When you create a certificate by signing a request to sign key only, you can validate chain. %but i think that is not what is regarded here as signed chain    
+Possible by command:
+\begin{verbatim}
+certtool --generate-certificate --load-request <csr_file> \
+         --load-ca-certificate <path_to_ca_cert> \
+         --load-ca-privkey <ca_cert_privkey_file> 
+         --outfile <name>.pem
+\end{verbatim}
+
     \subsubsection{Specify certificate validity}
 Validity is specified by changing cert.cfg file used while generating a certificate, the part \verb+expiration_days = <value>+
 Alternatively, you cen set \verb+NOT BEFORE+ and \verb+NOT AFTER+ times by changing \verb+activation_date = <NOT_BEFORE_STRING>+ and \verb+expiration_date = <NOT_AFTER_STRING>+ where the times are written in GNU date string format.
@@ -977,12 +976,15 @@ ip_address = "0.0.0.2"
 
   \subsection{Exporting}
   
-    \subsubsection{Certificate or certificate chain from a file}
-    
     \subsubsection{Private key only}
 It is not possible to export private key only, however for proper use of GnuTLS keys need to be stored on drive or imported to PKCS\#12 file.
   \subsection{Importing certificates and keys into storage files}
-Possible.   
+To import certificate and key into a PKCS\#12 file use command:
+\begin{verbatim}
+certtool --load-certificate <in_cert> \
+         --load-privkey <in_key> \
+         --to-p12 --outder --outfile <name>.[p12|pfx]
+\end{verbatim}   
 
 
 
@@ -1147,8 +1149,22 @@ The main thing to understand is, that every tool has had its strong and weak poi
 That can mean restrictions on used Operating System \textit{(e.g. customer has only access to Apple computers with OS X operating system)}, or for example restrictions how it should be used on Operating System \textit{(command line vs GUI program)}. In the next part i will try to go over strengths and weaknesses of each tool that I have tested.
 
 \section{OpenSSL}
-It is a great command line tool, can work with PEM, DER and PKCS\#12 files. Strong point is an easy form of creating a self-signed certificate, however using it for CA certificates with ca option is not ideal - it is noted in manual pages and also a O'REILLY OpenSSL book.
-Another strong point is configuration, which can be done in file. I tested it with creation of appropriate directories and configs.
+It is a great command line tool, can work with PEM, DER and PKCS\#12 files. Strong point is an easy form of creating a self-signed certificate, however using it for CA certificates with ca option is not ideal -  creating CA is not advised in O'REILLY's Network Security with OpenSSL by J. Viega, M. Messier and P. Chandra on page 59,
+\begin{displayquote}
+\textit{Since OpenSSL's command-line CA functionality was intended primarely as an example of how to use OpenSSL to build a CA, we don't recommend that you attempt to use it in a large production environment.}
+\end{displayquote}
+and also hinted in manual pages:
+\begin{displayquote}
+\textit{The ca command is quirky and at times downright unfriendly.}
+
+\textit{The ca utility was originally meant as an example of how to do things in a CA . It was not supposed to be used as a full blown CA itself: nevertheless some people are using it for this purpose.}
+
+\textit{The ca command is effectively a single user command: no locking is done on the various files and attempts to run more than one ca command on the same database can have unpredictable results.}
+
+\end{displayquote}
+
+
+On the other hand strong point of OpenSSL is configuration of created certificate, which can be done in file. I tested it with creation of appropriate directories and configs.
 
 \section{Keytool}
 Keytool is the only command line tool using Java Keystore to store keys and certificates, which i consider it main strong point. By default the CSP is \verb+java.security.provider+ which allows RSA and DSA options and SHA-1,MD5,SHA-256 and SHA-512 hash algorithms. This changes when choosing other Cryptographic Service Provider. Working with it is quite easy and support for exporting as PKCS\#12 is usefull addition.
