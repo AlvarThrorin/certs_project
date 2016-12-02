@@ -206,7 +206,7 @@ Windows PowerShell PKI Module & \cellcolor[HTML]{FE0000}No    & \cellcolor[HTML]
 
 \paragraph{Certificate Signing Request signing}
 
-\textit{Yes} means that the tool supports signing of certificate signing request. \textit{No} if it does not support signing of certificate signing requests.
+\textit{Yes} means that the tool supports signing of certificate signing request. \textit{No} if it does not.
 
 \paragraph{Create combination of private key and signed chain}
 
@@ -215,7 +215,7 @@ Windows PowerShell PKI Module & \cellcolor[HTML]{FE0000}No    & \cellcolor[HTML]
 
 \paragraph{Specify certificate validity}
 
-\textit{Yes} - Possibility of choosing how long the certificate will be valid. Done by certificate authority. \textit{No} - If there is no option to change how long the certificate will be valid, so the duration is a fixed ammount.
+\textit{Yes} if there is possibility of choosing how long the certificate will be valid. Done by certificate authority. \textit{No} If there is not such an  option, so the duration is a fixed ammount.
 
 Time how long the certificate will be valid can be given in csr but only as a suggestion. Ultimately the real time of
 validity is always given by CA signing the CSR.
@@ -223,16 +223,10 @@ validity is always given by CA signing the CSR.
 
 \paragraph{Setting Subject Alternative Name for end certificates}
 
-\begin{itemize}
- \item \textit{Yes} - possibility of setting a subject alternative name for certificate. It can be DNS name or IP address.
- \item \textit{No} - not possible to choose any subject alternative name.
-\end{itemize}
+\textit{Yes} means a  possibility of setting a subject alternative name for certificate. It can be DNS name or IP address. \textit{No} if there is no option to change any alternative name.
 
 \paragraph{Support for Cryptographic Service Provider}
-\begin{itemize}
- \item \textit{Yes} - if there is option to change a cryptographic service provider. 
- \item \textit{No} - the cryptographic service provider canot be changed.
-\end{itemize}
+\textit{Yes} if there is option to change a cryptographic service provider. \textit{No} means that the cryptographic service provider canot be changed.
 
 \newpage
 
