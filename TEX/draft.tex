@@ -637,13 +637,15 @@ GnuPG is free to use both for testing and in production code.
   \subsection{Keys, certificates and basic constraints}
   
     \subsubsection{Generate keys}
+
+      \paragraph{Specify Length}
+While choosing of key length is avaliable in GnuPG, using \verb+4096bit+ length freezes gpgsm. \verb+2048bit+ and \verb+1024bit+ is however fine.
     
       \paragraph{Certificate Signing Request}
 Possible by using \verb+gpgsm --gen-key > <output_file>+ command, but private key is not a part of output CSR.     
 \section{Note}
 GnuPG is unable to do anything besides creating a certificate signing request in X.509 public key infrastructure, that does not include a private key within itself.
-	\paragraph{Specify Length}
-While choosing of key length is avaliable in GnuPG, using \verb+4096bit+ length freezes gpgsm. \verb+2048bit+ and \verb+1024bit+ is however fine.
+
 \chapter{Keystore Explorer}
 
 \section{General}
