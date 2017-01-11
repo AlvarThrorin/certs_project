@@ -119,7 +119,7 @@ This section shows what type of input is used in Tool.
 \multirow{-2}{*}{Tool}        & \begin{tabular}[c]{@{}c@{}}     self-signed certificate\end{tabular} &   CSR                       & Specify length              & Specify algorithm           & Specify Type                & Specify path length         \\ \hline
 OpenSSL                       & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
 Keytool                       & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
-GnuPG                         & \cellcolor[HTML]{FE0000}No                                           & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{FE0000} No & \cellcolor[HTML]{FE0000}No  & \cellcolor[HTML]{FE0000}No  & \cellcolor[HTML]{FE0000}No  \\ \hline
+GnuPG                         & \cellcolor[HTML]{FE0000}No                                           & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{FE0000}No  & \cellcolor[HTML]{FE0000}No  & \cellcolor[HTML]{FE0000}No  \\ \hline
 Keystore explorer             & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
 XCA                           & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
 GnuTLS                        & \cellcolor[HTML]{34FF34}Yes                                          & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes & \cellcolor[HTML]{34FF34}Yes \\ \hline
@@ -642,7 +642,8 @@ GnuPG is free to use both for testing and in production code.
 Possible by using \verb+gpgsm --gen-key > <output_file>+ command, but private key is not a part of output CSR.     
 \section{Note}
 GnuPG is unable to do anything besides creating a certificate signing request in X.509 public key infrastructure, that does not include a private key within itself.
-
+	\paragraph{Specify Length}
+While choosing of key length is avaliable in GnuPG, using \verb+4096bit+ length freezes gpgsm. \verb+2048bit+ and \verb+1024bit+ is however fine.
 \chapter{Keystore Explorer}
 
 \section{General}
@@ -1202,5 +1203,57 @@ Other tested tools can be also used, but \textit{OpenSSL, Keytool, XCA} and \tex
 But only because they can do everything doesn't mean they are best at everything, for example if self-signed certificate is needed only for testing purposes, one can be really quickly made with the help of Windows PowerShell PKI Module where no additional instalations are required.\\
 
 Considering Java KeyStore tools, only 2 were tested, 1 GUI and 1 Command Line. Nevertheless, even though they have their own upsides and downsides, are easy and quickly ready to use.\\
+
+\chapter{Sources}
+For all of the tools where manual pages or help command were avaliable I used them. Besize that I used only a couple of documents and websites: 
+\begin{itemize}
+ \item \textbf{General} 
+   \begin{enumerate}
+    \item \href{https://tools.ietf.org/rfc/rfc5280.txt}{RFC 5280}
+    \item \href{https://books.google.cz/books/about/Digital_Certificates.html?id=0_3XAAAAMAAJ}{Digital Certificates: Applied Internet Security}
+   \end{enumerate}
+
+ \item \textbf{OpenSSL} 
+    \begin{enumerate} 
+      \item Manual Pages \verb+man <command || option>+
+      \item \href{http://operational.io/openssl-commonly-used-commands/}{List of most used OpenSSL commands}
+      \item \href{https://jamielinux.com/docs/openssl-certificate-authority/index.html}{Basic tutorial on establishing CA structure}
+      \item \href{https://books.google.cz/books?id=IIqwAy4qEl0C&pg=PT4&lpg=PT4&dq=978-0-596-00270-1&source=bl&ots=mb74-Q3DXs&sig=RDQA26zKltVYA1_5PTSkd2tk-Ag&hl=sk&sa=X&ved=0ahUKEwj-mcT4wLrRAhWbIFAKHQcDAaYQ6AEIGTAA#v=onepage&q=978-0-596-00270-1&f=false}{Network Security with OpenSSL By John Viega, Matt Messier, Pravir Chandra}
+    \end{enumerate}
+ \item{Keytool}
+    \begin{enumerate}
+     \item \href{http://docs.oracle.com/javase/7/docs/technotes/tools/solaris/keytool.html}{Documentation to keytool from Oracle}
+    \end{enumerate}
+ \item{GnuPG}
+  \begin{enumerate}
+   \item \verb+gpgsm --help+ option
+   \item \href{https://lists.gnupg.org/pipermail/gnupg-devel/2011-March/025989.html}{Public mailing list}
+  \end{enumerate}
+ \item{Keystore Explorer}
+  \begin{enumerate}
+   \item \href{http://help.farnedi.it/wp-content/uploads/2014/08/Generate_Keystore_with_KeyStore_Explorer.pdf}{Keystore Generating Tutorial}
+  \end{enumerate}
+ \item{XCA}
+  \begin{enumerate}
+   \item \href{http://xca.sourceforge.net/xca.html}{XCA Sourceforge guide and options}
+  \end{enumerate}
+ \item{GnuTLS}
+  \begin{enumerate}
+   \item \href{https://www.gnutls.org/manual/html_node/certtool-Invocation.html}{GnuTLS manual}
+  \end{enumerate}
+ \item{Makecert and pvk2pfx}
+  \begin{enumerate}
+   \item \href{https://msdn.microsoft.com/en-us/library/windows/desktop/aa386968(v=vs.85).aspx}{Microsoft's Makecert MSDN page}
+   \item \href{https://msdn.microsoft.com/en-us/library/bfsktky3(VS.100).aspx}{Microsoft page dedicated to use of Makecert.exe}
+   \item \href{https://blog.jayway.com/2014/09/03/creating-self-signed-certificates-with-makecert-exe-for-development/}{Tutorial on creating self-signed certificate with makecert}
+  \end{enumerate}
+ \item{Windows PowerShell PKI Module}
+  \begin{enumerate}
+   \item \href{https://technet.microsoft.com/en-us/library/hh848633.aspx}{Microsoft's page on New-SelfSignedCertificate}
+   \item \href{http://windowsitpro.com/blog/creating-self-signed-certificates-powershell}{Tutorial on creating self-signed certificate via PowerShell}
+   \item \href{http://woshub.com/how-to-create-self-signed-certificate-with-powershell/}{Another tutorial on creating self-signed certificate}
+  \end{enumerate}
+
+\end{itemize}
 
 \end{document}
